@@ -1,0 +1,13 @@
+<app-header
+  *ngIf="
+    router.url !== '/login' && router.url !== '/signup' && router.url !== '/'
+  "
+></app-header>
+<div class="container-fluid canvas-container">
+  <router-outlet></router-outlet>
+</div>
+<app-footer
+  *ngIf="
+    router.url !== '/login' && router.url !== '/signup' && router.url !== '/'
+  "
+></app-footer>

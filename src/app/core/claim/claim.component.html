@@ -1,0 +1,187 @@
+<div class="container">
+  <h3 class="text-center">General Insurance Policy Claim Menu</h3>
+  <form [formGroup]="claimForm" (ngSubmit)="onSubmit()" class="mt-5">
+    <div class="form-group mb-3">
+      <div class="row justify-content-md-center">
+        <div class="col-md-3">
+          <label class="mb-2">Policy Number </label>
+        </div>
+        <div class="col-md-4">
+          <input
+            type="text"
+            formControlName="policyNumber"
+            class="form-control textbox"
+            maxlength="10"
+            [ngClass]="{ 'is-invalid': submitted && f.policyNumber.errors }"
+          />
+          <div
+            *ngIf="submitted && f.policyNumber.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.policyNumber.errors.required">
+              Policy Number is required
+            </div>
+            <div *ngIf="f.policyNumber.errors.pattern">
+              Invalid Policy Number
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <div class="row justify-content-md-center">
+        <div class="col-md-3">
+          <label class="mb-2">Customer Number</label>
+        </div>
+        <div class="col-md-4">
+          <input
+            type="text"
+            formControlName="customerNumber"
+            class="form-control textbox"
+            maxlength="10"
+            [ngClass]="{ 'is-invalid': submitted && f.customerNumber.errors }"
+          />
+          <div
+            *ngIf="submitted && f.customerNumber.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.customerNumber.errors.required">
+              Customer Number is required
+            </div>
+            <div *ngIf="f.customerNumber.errors.pattern">
+              Invalid Customer Number
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <div class="row justify-content-md-center">
+        <div class="col-md-3">
+          <label class="mb-2">Claim Date</label>
+        </div>
+        <div class="col-md-4">
+          <input
+            type="date"
+            formControlName="claimDate"
+            class="form-control textbox"
+            data-date-format="YYYY/MM/DD"
+            [ngClass]="{ 'is-invalid': submitted && f.claimDate.errors }"
+          />
+
+          <div *ngIf="submitted && f.claimDate.errors" class="invalid-feedback">
+            <div *ngIf="f.claimDate.errors.required">
+              Claim Date is required
+            </div>
+            <div *ngIf="f.claimDate.errors.pattern">
+              Claim Date must be a valid date in the format YYYY-MM-DD
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <div class="row justify-content-md-center">
+        <div class="col-md-3">
+          <label class="mb-2">Paid </label>
+        </div>
+        <div class="col-md-4">
+          <input
+            type="text"
+            formControlName="paid"
+            class="form-control textbox"
+            maxlength="10"
+            [ngClass]="{ 'is-invalid': submitted && f.paid.errors }"
+          />
+          <div *ngIf="submitted && f.paid.errors" class="invalid-feedback">
+            <div *ngIf="f.paid.errors.required">Paid is required</div>
+            <div *ngIf="f.paid.errors.pattern">Invalid Paid Value</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <div class="row justify-content-md-center">
+        <div class="col-md-3">
+          <label class="mb-2">Value </label>
+        </div>
+        <div class="col-md-4">
+          <input
+            type="text"
+            formControlName="value"
+            class="form-control textbox"
+            maxlength="10"
+            [ngClass]="{ 'is-invalid': submitted && f.value.errors }"
+          />
+          <div *ngIf="submitted && f.value.errors" class="invalid-feedback">
+            <div *ngIf="f.value.errors.required">Value is required</div>
+            <div *ngIf="f.value.errors.pattern">Invalid Value</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <div class="row justify-content-md-center">
+        <div class="col-md-3">
+          <label class="mb-2">Cause </label>
+        </div>
+        <div class="col-md-4">
+          <input
+            type="text"
+            formControlName="cause"
+            class="form-control textbox"
+            maxlength="25"
+            [ngClass]="{ 'is-invalid': submitted && f.cause.errors }"
+          />
+          <div *ngIf="submitted && f.cause.errors" class="invalid-feedback">
+            <div *ngIf="f.cause.errors.required">Cause is required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <div class="row justify-content-md-center">
+        <div class="col-md-3">
+          <label class="mb-2">Observation </label>
+        </div>
+        <div class="col-md-4">
+          <input
+            type="text"
+            formControlName="observation"
+            class="form-control textbox"
+            maxlength="25"
+            [ngClass]="{ 'is-invalid': submitted && f.observation.errors }"
+          />
+          <div
+            *ngIf="submitted && f.observation.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.observation.errors.required">
+              Observation is required
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group d-flex justify-content-around mt-5">
+      <button type="submit" class="btn btn-primary">Claim Inquiry</button>
+      <button type="submit" class="btn btn-primary">Claim Add</button>
+      <button type="submit" class="btn btn-primary">Policy Delete</button>
+      <button type="submit" class="btn btn-primary">Policy Update</button>
+      <button
+        type="button"
+        (click)="onReset()"
+        class="btn btn-warning float-right"
+      >
+        Reset
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,453 @@
+<div class="container">
+  <h3 class="text-center">General Insurance Commercial Policy Menu</h3>
+  <form [formGroup]="commercialForm" (ngSubmit)="onSubmit()" class="mt-5">
+    <div class="form-group mb-3">
+      <div class="row justify-content-md-center">
+        <div class="col-md-3">
+          <label class="mb-2">Policy Number </label>
+        </div>
+        <div class="col-md-4">
+          <input
+            type="text"
+            formControlName="policyNumber"
+            class="form-control textbox"
+            maxlength="10"
+            [ngClass]="{ 'is-invalid': submitted && f.policyNumber.errors }"
+          />
+          <div
+            *ngIf="submitted && f.policyNumber.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.policyNumber.errors.required">
+              Policy Number is required
+            </div>
+            <div *ngIf="f.policyNumber.errors.pattern">
+              Invalid Policy Number
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <div class="row justify-content-md-center">
+        <div class="col-md-3">
+          <label class="mb-2">Customer Number</label>
+        </div>
+        <div class="col-md-4">
+          <input
+            type="text"
+            formControlName="customerNumber"
+            class="form-control textbox"
+            [ngClass]="{ 'is-invalid': submitted && f.customerNumber.errors }"
+          />
+          <div
+            *ngIf="submitted && f.customerNumber.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.customerNumber.errors.required">
+              Customer Number is required
+            </div>
+            <div *ngIf="f.customerNumber.errors.pattern">
+              Invalid Customer Number
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <div class="row justify-content-md-center">
+        <div class="col-md-3">
+          <label class="mb-2">Start Date</label>
+        </div>
+        <div class="col-md-4">
+          <input
+            type="date"
+            formControlName="startDate"
+            class="form-control textbox"
+            [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }"
+          />
+
+          <div *ngIf="submitted && f.startDate.errors" class="invalid-feedback">
+            <div *ngIf="f.startDate.errors.required">
+              Issue Date is required
+            </div>
+            <div *ngIf="f.startDate.errors.pattern">
+              Issue Date must be a valid date in the format YYYY-MM-DD
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <div class="row justify-content-md-center">
+        <div class="col-md-3">
+          <label class="mb-2">Expiry Date</label>
+        </div>
+        <div class="col-md-4">
+          <input
+            type="date"
+            formControlName="expiryDate"
+            class="form-control textbox"
+            data-date-format="YYYY/MM/DD"
+            [ngClass]="{ 'is-invalid': submitted && f.expiryDate.errors }"
+          />
+
+          <div
+            *ngIf="submitted && f.expiryDate.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.expiryDate.errors.required">
+              Issue Date is required
+            </div>
+            <div *ngIf="f.expiryDate.errors.pattern">
+              Issue Date must be a valid date in the format YYYY-MM-DD
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <div class="row justify-content-md-center">
+        <div class="col-md-3">
+          <label class="mb-2">Address </label>
+        </div>
+        <div class="col-md-4">
+          <input
+            type="text"
+            formControlName="address"
+            class="form-control textbox"
+            maxlength="25"
+            [ngClass]="{ 'is-invalid': submitted && f.address.errors }"
+          />
+          <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+            <div *ngIf="f.address.errors.required">Fund Name is required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <div class="row justify-content-md-center">
+        <div class="col-md-3">
+          <label class="mb-2">Postal Code </label>
+        </div>
+        <div class="col-md-4">
+          <input
+            type="text"
+            formControlName="postalCode"
+            class="form-control textbox"
+            maxlength="6"
+            [ngClass]="{ 'is-invalid': submitted && f.postalCode.errors }"
+          />
+          <div
+            *ngIf="submitted && f.postalCode.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.postalCode.errors.required">
+              Postal Code is required
+            </div>
+            <div *ngIf="f.postalCode.errors.pattern">
+              Invalid Postal Code Value
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <div class="row justify-content-md-center">
+        <div class="col-md-3">
+          <label class="mb-2">Latitude/Longitude </label>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group">
+            <input
+              type="text"
+              formControlName="latitude"
+              class="form-control textbox me-2"
+              maxlength="11"
+              [ngClass]="{ 'is-invalid': submitted && f.latitude.errors }"
+            />
+            <div
+              *ngIf="submitted && f.latitude.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.latitude.errors.required">Latitude is required</div>
+            </div>
+            <input
+              type="text"
+              formControlName="longitude"
+              class="form-control textbox"
+              maxlength="11"
+              [ngClass]="{ 'is-invalid': submitted && f.longitude.errors }"
+            />
+            <div
+              *ngIf="submitted && f.longitude.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.longitude.errors.required">
+                Longitude is required
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <div class="row justify-content-md-center">
+        <div class="col-md-3">
+          <label class="mb-2">Customer Name </label>
+        </div>
+        <div class="col-md-4">
+          <input
+            type="text"
+            formControlName="customerName"
+            class="form-control textbox"
+            maxlength="25"
+            [ngClass]="{ 'is-invalid': submitted && f.customerName.errors }"
+          />
+          <div
+            *ngIf="submitted && f.customerName.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.customerName.errors.required">
+              Customer Name is required
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <div class="row justify-content-md-center">
+        <div class="col-md-3">
+          <label class="mb-2">Fire Peril/Prem </label>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group">
+            <input
+              type="text"
+              formControlName="firePeril"
+              class="form-control textbox me-2"
+              maxlength="4"
+              [ngClass]="{ 'is-invalid': submitted && f.firePeril.errors }"
+            />
+            <div
+              *ngIf="submitted && f.firePeril.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.firePeril.errors.required">
+                Fire Peril is required
+              </div>
+            </div>
+            <input
+              type="text"
+              formControlName="firePrem"
+              class="form-control textbox"
+              maxlength="8"
+              [ngClass]="{ 'is-invalid': submitted && f.firePrem.errors }"
+            />
+            <div
+              *ngIf="submitted && f.firePrem.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.firePrem.errors.required">
+                Fire Prem is required
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <div class="row justify-content-md-center">
+        <div class="col-md-3">
+          <label class="mb-2">Crime Peril/Prem </label>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group">
+            <input
+              type="text"
+              formControlName="crimePeril"
+              class="form-control textbox me-2"
+              maxlength="4"
+              [ngClass]="{ 'is-invalid': submitted && f.crimePeril.errors }"
+            />
+            <div
+              *ngIf="submitted && f.crimePeril.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.crimePeril.errors.required">
+                Crime Peril is required
+              </div>
+            </div>
+            <input
+              type="text"
+              formControlName="crimePrem"
+              class="form-control textbox"
+              maxlength="8"
+              [ngClass]="{ 'is-invalid': submitted && f.crimePrem.errors }"
+            />
+            <div
+              *ngIf="submitted && f.crimePrem.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.crimePrem.errors.required">
+                Crime Prem is required
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <div class="row justify-content-md-center">
+        <div class="col-md-3">
+          <label class="mb-2">Flood Peril/Prem </label>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group">
+            <input
+              type="text"
+              formControlName="floodPeril"
+              class="form-control textbox me-2"
+              maxlength="4"
+              [ngClass]="{ 'is-invalid': submitted && f.floodPeril.errors }"
+            />
+            <div
+              *ngIf="submitted && f.floodPeril.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.floodPeril.errors.required">
+                Flood Peril is required
+              </div>
+            </div>
+            <input
+              type="text"
+              formControlName="floodPrem"
+              class="form-control textbox"
+              maxlength="8"
+              [ngClass]="{ 'is-invalid': submitted && f.floodPrem.errors }"
+            />
+            <div
+              *ngIf="submitted && f.floodPrem.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.floodPrem.errors.required">
+                Flood Prem is required
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <div class="row justify-content-md-center">
+        <div class="col-md-3">
+          <label class="mb-2">Weather Peril/Prem </label>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group">
+            <input
+              type="text"
+              formControlName="weatherPeril"
+              class="form-control textbox me-2"
+              maxlength="4"
+              [ngClass]="{ 'is-invalid': submitted && f.weatherPeril.errors }"
+            />
+            <div
+              *ngIf="submitted && f.weatherPeril.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.weatherPeril.errors.required">
+                Weather Peril is required
+              </div>
+            </div>
+            <input
+              type="text"
+              formControlName="weatherPrem"
+              class="form-control textbox"
+              maxlength="8"
+              [ngClass]="{ 'is-invalid': submitted && f.weatherPrem.errors }"
+            />
+            <div
+              *ngIf="submitted && f.weatherPrem.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.weatherPrem.errors.required">
+                Weather Prem is required
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <div class="row justify-content-md-center">
+        <div class="col-md-3">
+          <label class="mb-2">Status </label>
+        </div>
+        <div class="col-md-4">
+          <input
+            type="text"
+            formControlName="status"
+            class="form-control textbox"
+            maxlength="4"
+            [ngClass]="{ 'is-invalid': submitted && f.status.errors }"
+          />
+          <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
+            <div *ngIf="f.status.errors.required">Status is required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <div class="row justify-content-md-center">
+        <div class="col-md-3">
+          <label class="mb-2">Reject Reason </label>
+        </div>
+        <div class="col-md-4">
+          <input
+            type="text"
+            formControlName="rejectReason"
+            class="form-control textbox"
+            maxlength="4"
+            [ngClass]="{ 'is-invalid': submitted && f.rejectReason.errors }"
+          />
+          <div
+            *ngIf="submitted && f.rejectReason.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.rejectReason.errors.required">
+              Reject Reason is required
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group d-flex justify-content-around mt-5">
+      <button type="submit" class="btn btn-primary">Policy Inquiry</button>
+      <button type="submit" class="btn btn-primary">Policy Add</button>
+      <button type="submit" class="btn btn-primary">Policy Delete</button>
+
+      <button
+        type="button"
+        (click)="onReset()"
+        class="btn btn-warning float-right"
+      >
+        Reset
+      </button>
+    </div>
+  </form>
+</div>
