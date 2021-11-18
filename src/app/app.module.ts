@@ -6,8 +6,8 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './home/home.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './common/header/header.component';
+import { FooterComponent } from './common/footer/footer.component';
 import { CustomerComponent } from './core/customer/customer.component';
 import { MotorComponent } from './core/motor/motor.component';
 import { EndowmentComponent } from './core/endowment/endowment.component';
@@ -15,6 +15,7 @@ import { HouseComponent } from './core/house/house.component';
 import { CommercialComponent } from './core/commercial/commercial.component';
 import { ClaimComponent } from './core/claim/claim.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AlertComponent } from './common/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
     HouseComponent,
     CommercialComponent,
     ClaimComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,

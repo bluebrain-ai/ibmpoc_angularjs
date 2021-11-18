@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { IcustomerAddResponse, IcustomerInquiryResponse } from 'src/app/model/customer';
+import { AlertService } from 'src/app/services/alert.service';
 import { ClaimService } from 'src/app/services/policy/claim.service';
 @Component({
   selector: 'app-customer',
@@ -17,7 +18,7 @@ export class CustomerComponent implements OnInit, AfterViewInit {
   submitted = false;
   noCustomerNo = false;
   isClaimUpdate = false;
-  constructor(private formBuilder: FormBuilder, private _claimService: ClaimService) { }
+  constructor(private formBuilder: FormBuilder, private _claimService: ClaimService, private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.submitted = false;
@@ -56,6 +57,7 @@ export class CustomerComponent implements OnInit, AfterViewInit {
     });
 
     this.onReset();
+
   }
   get f(): { [key: string]: AbstractControl } {
     return this.customerForm.controls;
@@ -114,7 +116,6 @@ export class CustomerComponent implements OnInit, AfterViewInit {
       return;
     }
     this.noCustomerNo = false;
-
     let customerAddObj: IcustomerAddResponse = {
       caRequestId: '01ACUS',
       caCustomerNum: '0',
@@ -128,12 +129,14 @@ export class CustomerComponent implements OnInit, AfterViewInit {
       caPhoneMobile: formValue['phoneMobile'],
       caEmailAddress: formValue['email']
     }
-
-
+    this.alertService.success("New Customer Inserted", false);
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
     return this._claimService.claimAdd(customerAddObj).subscribe((res: any) => {
       //Call alert to show notification
       console.log(res, 'Res for add claim')
-    })
+      this.alertService.success("New Customer Inserted", false);
+    });
+
 
 
   }
@@ -168,6 +171,7 @@ export class CustomerComponent implements OnInit, AfterViewInit {
         caPhoneMobile: formValue['phoneMobile'],
         caEmailAddress: formValue['email']
       }
+      this.alertService.success("Customer details updated", false);
       return this._claimService.claimUpdate(customerUpdateObj).subscribe((res: any) => {
         //Call alert to show notification
         console.log(res, 'Res for add claim')

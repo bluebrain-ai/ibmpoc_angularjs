@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -33,13 +33,18 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.loginForm.invalid) {
+      this.message = 'Please enter your userid and password';
+
       return;
     } else {
+      console.log(this.message);
+
       if (
         this.form.userid.value == this.model.userid &&
         this.form.password.value == this.model.password
       ) {
         console.log('Login successful');
+        this.message = ''
         //this.authService.authLogin(this.model);
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('token', this.form.userid.value);
@@ -47,6 +52,23 @@ export class LoginComponent implements OnInit {
       } else {
         this.message = 'Please check your userid and password';
       }
+      console.log(this.message);
+
     }
+
+
+
+    // this.authenticateLoginService.login(this.login.email, this.login.password)
+    //   .subscribe(data => {
+    //     this.redirectToLoginPage();
+    //   },
+    //     error => {
+    //       this.alertService.error('Invalid Username or Password');
+    //       this.loading = false;
+    //     });
+
+  }
+  closeAlert() {
+    this.message = ''
   }
 }
