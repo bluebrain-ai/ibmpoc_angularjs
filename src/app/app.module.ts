@@ -14,7 +14,8 @@ import { EndowmentComponent } from './core/endowment/endowment.component';
 import { HouseComponent } from './core/house/house.component';
 import { CommercialComponent } from './core/commercial/commercial.component';
 import { ClaimComponent } from './core/claim/claim.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +32,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   imports: [
     BrowserModule,
-    NgbModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
@@ -39,4 +40,4 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   providers: [AuthGuard],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

@@ -1,255 +1,184 @@
 <div class="container">
-  <h3 class="text-center">General Insurance Customer Menu</h3>
-  <form [formGroup]="customerForm" (ngSubmit)="onSubmit()" class="mt-5">
-    <div class="form-group mb-3">
-      <div class="row justify-content-md-center">
-        <div class="col-md-3">
-          <label class="mb-2">Customer Number</label>
-        </div>
-        <div class="col-md-4">
-          <input
-            type="text"
-            formControlName="customerNumber"
-            class="form-control textbox"
-            [ngClass]="{ 'is-invalid': submitted && f.customerNumber.errors }"
-          />
-          <div
-            *ngIf="submitted && f.customerNumber.errors"
-            class="invalid-feedback"
-          >
-            <div *ngIf="f.customerNumber.errors.required">
-              Customer Number is required
+    <h3 class="text-center">General Insurance Customer Menu</h3>
+    <form [formGroup]="customerForm" class="mt-5">
+        <div class="form-group mb-3">
+            <div class="row justify-content-md-center">
+                <div class="col-md-3">
+                    <label class="mb-2">Customer Number</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="number" formControlName="customerNumber" (input)="customerNoKeyUp()" class="form-control textbox" [ngClass]="{ 'is-invalid': submitted && noCustomerNo }" />
+                    <div *ngIf="submitted && noCustomerNo" class="invalid-feedback">
+                        <div *ngIf="noCustomerNo">
+                            Customer Number is required
+                        </div>
+                        <!-- <div *ngIf="f.customerNumber.errors.pattern">
+                            Invalid Customer Number
+                        </div> -->
+                    </div>
+                </div>
             </div>
-            <div *ngIf="f.customerNumber.errors.pattern">
-              Invalid Customer Number
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="form-group mb-3">
-      <div class="row justify-content-md-center">
-        <div class="col-md-3">
-          <label class="mb-2">Customer First Name</label>
-        </div>
-        <div class="col-md-4">
-          <input
-            type="text"
-            formControlName="customerFirstName"
-            class="form-control textbox"
-            maxlength="10"
-            [ngClass]="{
+        <div class="form-group mb-3">
+            <div class="row justify-content-md-center">
+                <div class="col-md-3">
+                    <label class="mb-2">Customer First Name</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" formControlName="customerFirstName" class="form-control textbox" maxlength="10" [ngClass]="{
               'is-invalid': submitted && f.customerFirstName.errors
-            }"
-          />
-          <div
-            *ngIf="submitted && f.customerFirstName.errors"
-            class="invalid-feedback"
-          >
-            <div *ngIf="f.customerFirstName.errors.required">
-              Customer Firstname is required
+            }" />
+                    <div *ngIf="submitted && f.customerFirstName.errors" class="invalid-feedback">
+                        <div *ngIf="f.customerFirstName.errors.required">
+                            Customer Firstname is required
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-    <div class="form-group mb-3">
-      <div class="row justify-content-md-center">
-        <div class="col-md-3">
-          <label class="mb-2">Customer Last Name</label>
-        </div>
-        <div class="col-md-4">
-          <input
-            type="text"
-            formControlName="customerLastName"
-            class="form-control textbox"
-            maxlength="20"
-            [ngClass]="{ 'is-invalid': submitted && f.customerLastName.errors }"
-          />
-          <div
-            *ngIf="submitted && f.customerLastName.errors"
-            class="invalid-feedback"
-          >
-            <div *ngIf="f.customerLastName.errors.required">
-              Customer Lastname is required
+        <div class="form-group mb-3">
+            <div class="row justify-content-md-center">
+                <div class="col-md-3">
+                    <label class="mb-2">Customer Last Name</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" formControlName="customerLastName" class="form-control textbox" maxlength="20" [ngClass]="{ 'is-invalid': submitted && f.customerLastName.errors }" />
+                    <div *ngIf="submitted && f.customerLastName.errors" class="invalid-feedback">
+                        <div *ngIf="f.customerLastName.errors.required">
+                            Customer Lastname is required
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-    <div class="form-group mb-3">
-      <div class="row justify-content-md-center">
-        <div class="col-md-3">
-          <label class="mb-2">Date of Birth</label>
-        </div>
-        <div class="col-md-4">
-          <input
-            type="text"
-            formControlName="dob"
-            class="form-control textbox"
-            placeholder="YYYY/MM/DD"
-            [ngClass]="{ 'is-invalid': submitted && f.dob.errors }"
-          />
+        <div class="form-group mb-3">
+            <div class="row justify-content-md-center">
+                <div class="col-md-3">
+                    <label class="mb-2">Date of Birth</label>
+                </div>
+                <div class="col-md-4">
 
-          <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
-            <div *ngIf="f.dob.errors.required">Date of Birth is required</div>
-            <div *ngIf="f.dob.errors.pattern">
-              Date of Birth must be a valid date in the format YYYY-MM-DD
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+                    <input type="date" formControlName="dob" class="form-control textbox" data-placeholder="YYYY/MM/DD" [ngClass]="{ 'is-invalid': submitted && f.dob.errors }" />
 
-    <div class="form-group mb-3">
-      <div class="row justify-content-md-center">
-        <div class="col-md-3">
-          <label class="mb-2">House Name</label>
-        </div>
-        <div class="col-md-4">
-          <input
-            type="text"
-            formControlName="houseName"
-            class="form-control textbox"
-            maxlength="20"
-            [ngClass]="{ 'is-invalid': submitted && f.houseName.errors }"
-          />
-          <div *ngIf="submitted && f.houseName.errors" class="invalid-feedback">
-            <div *ngIf="f.houseName.errors.required">
-              House Name is required
+                    <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
+                        <div *ngIf="f.dob.errors.required">Date of Birth is required</div>
+                        <div *ngIf="f.dob.errors.pattern">
+                            Date of Birth must be a valid date in the format YYYY-MM-DD
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="form-group mb-3">
-      <div class="row justify-content-md-center">
-        <div class="col-md-3">
-          <label class="mb-2">House Number</label>
-        </div>
-        <div class="col-md-4">
-          <input
-            type="text"
-            formControlName="houseNumber"
-            class="form-control textbox"
-            maxlength="4"
-            [ngClass]="{ 'is-invalid': submitted && f.houseNumber.errors }"
-          />
-          <div
-            *ngIf="submitted && f.houseNumber.errors"
-            class="invalid-feedback"
-          >
-            <div *ngIf="f.houseNumber.errors.required">
-              House Number is required
+        <div class="form-group mb-3">
+            <div class="row justify-content-md-center">
+                <div class="col-md-3">
+                    <label class="mb-2">House Name</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" formControlName="houseName" class="form-control textbox" maxlength="20" [ngClass]="{ 'is-invalid': submitted && f.houseName.errors }" />
+                    <div *ngIf="submitted && f.houseName.errors" class="invalid-feedback">
+                        <div *ngIf="f.houseName.errors.required">
+                            House Name is required
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="form-group mb-3">
-      <div class="row justify-content-md-center">
-        <div class="col-md-3">
-          <label class="mb-2">Post Code</label>
+        <div class="form-group mb-3">
+            <div class="row justify-content-md-center">
+                <div class="col-md-3">
+                    <label class="mb-2">House Number</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" formControlName="houseNumber" class="form-control textbox" maxlength="4" [ngClass]="{ 'is-invalid': submitted && f.houseNumber.errors }" />
+                    <div *ngIf="submitted && f.houseNumber.errors" class="invalid-feedback">
+                        <div *ngIf="f.houseNumber.errors.required">
+                            House Number is required
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-4">
-          <input
-            type="text"
-            formControlName="postCode"
-            class="form-control textbox"
-            maxlength="8"
-            [ngClass]="{ 'is-invalid': submitted && f.postCode.errors }"
-          />
-          <div *ngIf="submitted && f.postCode.errors" class="invalid-feedback">
-            <div *ngIf="f.postCode.errors.required">Post Code is required</div>
-            <div *ngIf="f.postCode.errors.pattern">Invalid Post Code</div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="form-group mb-3">
-      <div class="row justify-content-md-center">
-        <div class="col-md-3">
-          <label class="mb-2">Phone Home</label>
-        </div>
-        <div class="col-md-4">
-          <input
-            type="text"
-            formControlName="phoneHome"
-            class="form-control textbox"
-            maxlength="20"
-            [ngClass]="{ 'is-invalid': submitted && f.phoneHome.errors }"
-          />
-          <div *ngIf="submitted && f.phoneHome.errors" class="invalid-feedback">
-            <div *ngIf="f.phoneHome.errors.required">
-              Phone Home is required
+        <div class="form-group mb-3">
+            <div class="row justify-content-md-center">
+                <div class="col-md-3">
+                    <label class="mb-2">Post Code</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" formControlName="postCode" class="form-control textbox" maxlength="8" [ngClass]="{ 'is-invalid': submitted && f.postCode.errors }" />
+                    <div *ngIf="submitted && f.postCode.errors" class="invalid-feedback">
+                        <div *ngIf="f.postCode.errors.required">Post Code is required</div>
+                        <div *ngIf="f.postCode.errors.pattern">Invalid Post Code</div>
+                    </div>
+                </div>
             </div>
-            <div *ngIf="f.phoneHome.errors.pattern">Invalid Phone Home</div>
-          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="form-group mb-3">
-      <div class="row justify-content-md-center">
-        <div class="col-md-3">
-          <label class="mb-2">Phone Mobile</label>
-        </div>
-        <div class="col-md-4">
-          <input
-            type="text"
-            formControlName="phoneMobile"
-            class="form-control textbox"
-            maxlength="20"
-            [ngClass]="{ 'is-invalid': submitted && f.phoneMobile.errors }"
-          />
-          <div
-            *ngIf="submitted && f.phoneMobile.errors"
-            class="invalid-feedback"
-          >
-            <div *ngIf="f.phoneMobile.errors.required">
-              Phone Mobile is required
+        <div class="form-group mb-3">
+            <div class="row justify-content-md-center">
+                <div class="col-md-3">
+                    <label class="mb-2">Phone Home</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" formControlName="phoneHome" class="form-control textbox" maxlength="20" [ngClass]="{ 'is-invalid': submitted && f.phoneHome.errors }" />
+                    <div *ngIf="submitted && f.phoneHome.errors" class="invalid-feedback">
+                        <div *ngIf="f.phoneHome.errors.required">
+                            Phone Home is required
+                        </div>
+                        <div *ngIf="f.phoneHome.errors.pattern">Invalid Phone Home</div>
+                    </div>
+                </div>
             </div>
-            <div *ngIf="f.phoneMobile.errors.pattern">Invalid Phone Mobile</div>
-          </div>
         </div>
-      </div>
-    </div>
-    <div class="form-group mb-3">
-      <div class="row justify-content-md-center">
-        <div class="col-md-3">
-          <label class="mb-2">Email</label>
-        </div>
-        <div class="col-md-4">
-          <input
-            type="email"
-            formControlName="email"
-            class="form-control textbox"
-            [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
-          />
-          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-            <div *ngIf="f.email.errors.required">Email is required</div>
-            <div *ngIf="f.email.errors.email">
-              Email must be a valid email address
+
+        <div class="form-group mb-3">
+            <div class="row justify-content-md-center">
+                <div class="col-md-3">
+                    <label class="mb-2">Phone Mobile</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" formControlName="phoneMobile" class="form-control textbox" maxlength="20" [ngClass]="{ 'is-invalid': submitted && f.phoneMobile.errors }" />
+                    <div *ngIf="submitted && f.phoneMobile.errors" class="invalid-feedback">
+                        <div *ngIf="f.phoneMobile.errors.required">
+                            Phone Mobile is required
+                        </div>
+                        <div *ngIf="f.phoneMobile.errors.pattern">Invalid Phone Mobile</div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-    <div class="form-group d-flex justify-content-around mt-5">
-      <button type="submit" class="btn btn-primary">Customer Inquiry</button>
-      <button type="submit" class="btn btn-primary">Customer Add</button>
-      <button type="submit" class="btn btn-primary">Customer Delete</button>
-      <button
-        type="button"
-        (click)="onReset()"
-        class="btn btn-warning float-right"
-      >
+        <div class="form-group mb-3">
+            <div class="row justify-content-md-center">
+                <div class="col-md-3">
+                    <label class="mb-2">Email</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="email" formControlName="email" class="form-control textbox" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                        <div *ngIf="f.email.errors.required">Email is required</div>
+                        <div *ngIf="f.email.errors.email">
+                            Email must be a valid email address
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group d-flex justify-content-around mt-5">
+            <button type="submit" class="btn btn-primary" (click)="claimInquiry()">Customer Inquiry</button>
+            <button type="submit" class="btn btn-primary" (click)="claimAdd()">Customer Add</button>
+            <div *ngIf="isClaimUpdate">
+                <button type="submit" [disabled]="!isClaimUpdate" class="btn btn-primary" (click)="claimUpdate()">Confirm Update</button>
+            </div>
+            <div *ngIf="!isClaimUpdate">
+                <button type="submit" [disabled]="isClaimUpdate" class="btn btn-primary" (click)="claimUpdate()">Customer Update</button>
+            </div>
+            <button type="button" (click)="onReset()" class="btn btn-warning float-right">
         Reset
       </button>
-    </div>
-  </form>
+        </div>
+    </form>
 </div>

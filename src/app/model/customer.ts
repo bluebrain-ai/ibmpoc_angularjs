@@ -1,14 +1,28 @@
-export class customer {
-  constructor(
-    public custNo: number,
-    public custFirstName: string,
-    public custLastName: string,
-    public dateofBirth: Date,
-    public houseName: string,
-    public houseNumber: string,
-    public postCode: string,
-    public phoneHome: string,
-    public phoneMobile: string,
-    public emailAddress: string
-  ) {}
+
+
+export interface IcustomerInquiryResponse {
+  caFirstName: string;
+  caLastName: string;
+  caDob: string;
+  caHouseName: string;
+  caHouseNum: string;
+  caPostcode: string;
+  caPhoneHome: string;
+  caPhoneMobile: string;
+  caEmailAddress: string;
+}
+
+
+export interface IcustomerAddResponse {
+  caRequestId: string;
+  caCustomerNum: string;
+  caFirstName: string;
+  caLastName: string;
+  caDob: string;
+  caHouseName: string;
+  caHouseNum: string;
+  caPostcode: string;
+  caPhoneHome: string;
+  caPhoneMobile: string;
+  caEmailAddress: string;
 }
