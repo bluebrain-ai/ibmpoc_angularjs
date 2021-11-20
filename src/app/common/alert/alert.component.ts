@@ -12,10 +12,9 @@ export class AlertComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("Calling init function");
-    this.alertService.getMessage().subscribe(message => { this.message = message; });
-    setTimeout(() => {
-      this.message = ''
-    }, 10000);
+    this.alertService.getMessage().subscribe(message => {
+      this.message = message;
+    });
   }
   closeAlert() {
     this.message = ''

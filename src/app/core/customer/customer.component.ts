@@ -75,6 +75,8 @@ export class CustomerComponent implements OnInit, AfterViewInit {
   }
   onReset(): void {
     this.submitted = false;
+    this.noCustomerNo = false;
+    this.isClaimUpdate = false;
     this.customerForm.reset();
   }
   ngAfterViewInit() {
@@ -84,15 +86,15 @@ export class CustomerComponent implements OnInit, AfterViewInit {
   claimInquiry(inquiryType: string = '') {
     this.submitted = true;
     let formValue = this.customerForm.value;
-    if (formValue['customerNumber'] == null) {
+    if (formValue['customerNumber'] == null || formValue['customerNumber'] == "") {
       this.noCustomerNo = true;
       return;
     }
     this.noCustomerNo = false;
-    return this._claimService.claimInquiry(formValue['customerNumber']).subscribe((res: IcustomerInquiryResponse) => {
+    this._claimService.claimInquiry(formValue['customerNumber']).subscribe((res: IcustomerInquiryResponse) => {
       this.customerForm.patchValue({
         customerFirstName: res.caFirstName,
-        customerLasttName: res.caLastName,
+        customerLastName: res.caLastName,
         dob: res.caDob,
         houseName: res.caHouseName,
         houseNumber: res.caHouseNum,
@@ -111,7 +113,7 @@ export class CustomerComponent implements OnInit, AfterViewInit {
   claimAdd() {
     this.submitted = true;
     let formValue = this.customerForm.value;
-    if (formValue['customerNumber'] == null) {
+    if (formValue['customerNumber'] == null || formValue['customerNumber'] == "") {
       this.noCustomerNo = true;
       return;
     }
@@ -131,20 +133,18 @@ export class CustomerComponent implements OnInit, AfterViewInit {
     }
     this.alertService.success("New Customer Inserted", false);
     document.body.scrollTop = document.documentElement.scrollTop = 0;
-    return this._claimService.claimAdd(customerAddObj).subscribe((res: any) => {
+    this._claimService.claimAdd(customerAddObj).subscribe((res: any) => {
       //Call alert to show notification
       console.log(res, 'Res for add claim')
+      this.onReset();
       this.alertService.success("New Customer Inserted", false);
     });
-
-
-
   }
 
   claimUpdate() {
     this.submitted = true;
     let formValue = this.customerForm.value;
-    if (formValue['customerNumber'] == null) {
+    if (formValue['customerNumber'] == null || formValue['customerNumber'] == "") {
       this.noCustomerNo = true;
       return;
     }
@@ -155,8 +155,6 @@ export class CustomerComponent implements OnInit, AfterViewInit {
       this.isClaimUpdate = true;
     }
     else {
-
-
       //Update functionality
       let customerUpdateObj: IcustomerAddResponse = {
         caRequestId: '01UCUS',
@@ -172,10 +170,11 @@ export class CustomerComponent implements OnInit, AfterViewInit {
         caEmailAddress: formValue['email']
       }
       this.alertService.success("Customer details updated", false);
-      return this._claimService.claimUpdate(customerUpdateObj).subscribe((res: any) => {
+      this._claimService.claimUpdate(customerUpdateObj).subscribe((res: any) => {
         //Call alert to show notification
         console.log(res, 'Res for add claim')
         this.isClaimUpdate = false;
+        this.onReset();
       })
       //once the update sucess then made the isupdtae false 
     }
@@ -186,6 +185,5 @@ export class CustomerComponent implements OnInit, AfterViewInit {
     //Disable Error
     this.submitted = false;
     this.noCustomerNo = false;
-    this.isClaimUpdate = false;
   }
 }

@@ -7,7 +7,7 @@
                     <label class="mb-2">Customer Number</label>
                 </div>
                 <div class="col-md-4">
-                    <input type="number" formControlName="customerNumber" (input)="customerNoKeyUp()" class="form-control textbox" [ngClass]="{ 'is-invalid': submitted && noCustomerNo }" />
+                    <input type="text" formControlName="customerNumber" (input)="customerNoKeyUp()" class="form-control textbox" [ngClass]="{ 'is-invalid': submitted && noCustomerNo }" />
                     <div *ngIf="submitted && noCustomerNo" class="invalid-feedback">
                         <div *ngIf="noCustomerNo">
                             Customer Number is required
