@@ -176,7 +176,7 @@ export class MotorComponent implements OnInit {
       }
       else {
         //Update functionality
-        let customerUpdateObj: IMotorPolicy = {
+        let motorPolicyAddObj: IMotorPolicy = {
           caRequestId: '01UMOT',
           caCustomerNum: formValue['customerNumber'],
           caPayment: "0",
@@ -194,11 +194,13 @@ export class MotorComponent implements OnInit {
           caMPremium: formValue['policyPremium'],
           caMAccidents: formValue['noOfAccident'],
         }
-        this._motorService.motorPolicyUpdate(customerUpdateObj).subscribe((res: any) => {
+        this._motorService.motorPolicyUpdate(motorPolicyAddObj).subscribe((res: any) => {
           //Call alert to show notification
           console.log(res, 'Res for policy updated')
           this.isPolicyUpdate = false;
           this.onReset();
+          this.alertService.success("Motor Policy Updated", false);
+
         })
       }
 
