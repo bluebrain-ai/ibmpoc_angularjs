@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { IEndowmentInquiryResponse, IEndowmentPolicy } from 'src/app/model/endowmentPolicy';
 import { AlertService } from 'src/app/services/alert.service';
+import { CommonService } from 'src/app/services/common.service';
 import { EndowmentService } from 'src/app/services/policy/endowment.service';
 
 @Component({
@@ -20,7 +21,7 @@ export class EndowmentComponent implements OnInit {
   noCustomerNo = false;
   noPolicyNo = false;
   isPolicyUpdate = false;
-  constructor(private formBuilder: FormBuilder, private _endowmentService: EndowmentService, private alertService: AlertService) { }
+  constructor(private formBuilder: FormBuilder, private _endowmentService: EndowmentService, private alertService: AlertService, private commonService: CommonService) { }
 
   ngOnInit(): void {
     this.endowmentForm = this.formBuilder.group({
@@ -91,6 +92,8 @@ export class EndowmentComponent implements OnInit {
     this.noPolicyNo = false;
     this.isPolicyUpdate = false;
     this.endowmentForm.reset();
+    this.commonService.scrollUpPage();
+
   }
 
   // Reset validation before on any button click
@@ -158,6 +161,8 @@ export class EndowmentComponent implements OnInit {
           this.isPolicyUpdate = true;
         }
       })
+      this.commonService.scrollUpPage();
+
     }
     else {
       //Empty Else
@@ -175,6 +180,8 @@ export class EndowmentComponent implements OnInit {
         this.onReset();
         this.alertService.success("Motor Policy Deleted", false);
       })
+      this.commonService.scrollUpPage();
+
     }
   }
   policyAdd() {
@@ -210,6 +217,8 @@ export class EndowmentComponent implements OnInit {
       this.onReset();
       this.alertService.success("New Life Policy Inserted", false);
     });
+    this.commonService.scrollUpPage();
+
 
   }
 
@@ -249,6 +258,8 @@ export class EndowmentComponent implements OnInit {
           this.alertService.success("Life Policy Updated", false);
 
         })
+        this.commonService.scrollUpPage();
+
       }
 
     }

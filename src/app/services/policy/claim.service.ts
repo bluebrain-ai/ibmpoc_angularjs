@@ -5,13 +5,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { IcustomerInquiryResponse } from 'src/app/model/customer';
 import { EndPoints } from 'src/app/constants/endPoints';
+import { NGXLogger } from "ngx-logger";
+import { CommonService } from '../common.service';
 @Injectable({
   providedIn: 'root'
 })
 export class ClaimService {
 
   claimInquiryEndpoint = environment.customerPolicy
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private logger: NGXLogger, private commonService: CommonService) {
     console.log(environment.customerPolicy);
   }
   httpHeader = {
@@ -19,9 +21,6 @@ export class ClaimService {
       'Content-Type': 'application/json'
     })
   }
-
-
-
   claimInquiry(customerNo): Observable<IcustomerInquiryResponse> {
     let customerObj = {
       caRequestId: '01ICUS',
@@ -30,7 +29,7 @@ export class ClaimService {
     return this.httpClient.post<IcustomerInquiryResponse>(this.claimInquiryEndpoint + EndPoints.CLAIM_ENQUIRY, JSON.stringify(customerObj), this.httpHeader)
       .pipe(
         retry(1),
-        catchError(this.processError)
+        catchError(this.commonService.processError)
       )
   }
 
@@ -39,7 +38,7 @@ export class ClaimService {
     return this.httpClient.post(this.claimInquiryEndpoint + EndPoints.CLAIM_ADD, JSON.stringify(customerDetails), this.httpHeader)
       .pipe(
         retry(1),
-        catchError(this.processError)
+        catchError(this.commonService.processError)
       )
   }
 
@@ -48,20 +47,11 @@ export class ClaimService {
     return this.httpClient.post(this.claimInquiryEndpoint + EndPoints.CLAIM_UPDATE, JSON.stringify(customerDetails), this.httpHeader)
       .pipe(
         retry(1),
-        catchError(this.processError)
+        catchError(this.commonService.processError)
       )
   }
 
 
 
-  processError(err) {
-    let message = '';
-    if (err.error instanceof ErrorEvent) {
-      message = err.error.message;
-    } else {
-      message = `Error Code: ${err.status}\nMessage: ${err.message}`;
-    }
-    console.log(message);
-    return throwError(message);
-  }
+
 }

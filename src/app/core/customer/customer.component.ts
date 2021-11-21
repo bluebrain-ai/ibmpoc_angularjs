@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { IcustomerAddResponse, IcustomerInquiryResponse } from 'src/app/model/customer';
 import { AlertService } from 'src/app/services/alert.service';
+import { CommonService } from 'src/app/services/common.service';
 import { ClaimService } from 'src/app/services/policy/claim.service';
 @Component({
   selector: 'app-customer',
@@ -18,8 +19,7 @@ export class CustomerComponent implements OnInit, AfterViewInit {
   submitted = false;
   noCustomerNo = false;
   isClaimUpdate = false;
-  constructor(private formBuilder: FormBuilder, private _claimService: ClaimService, private alertService: AlertService) { }
-
+  constructor(private formBuilder: FormBuilder, private _claimService: ClaimService, private alertService: AlertService, private commonService: CommonService) { }
   ngOnInit(): void {
     this.submitted = false;
     this.noCustomerNo = false;
@@ -62,22 +62,12 @@ export class CustomerComponent implements OnInit, AfterViewInit {
   get f(): { [key: string]: AbstractControl } {
     return this.customerForm.controls;
   }
-
-  onSubmit(): void {
-    this.submitted = true;
-    let formValue = this.customerForm.value;
-    if (formValue['customerNumber'] == null) {
-      this.noCustomerNo = true;
-      return;
-    }
-    this.noCustomerNo = false;
-
-  }
   onReset(): void {
     this.submitted = false;
     this.noCustomerNo = false;
     this.isClaimUpdate = false;
     this.customerForm.reset();
+    this.commonService.scrollUpPage();
   }
   ngAfterViewInit() {
     //Copy in all the js code from the script.js. Typescript will complain but it works just fine
@@ -107,6 +97,7 @@ export class CustomerComponent implements OnInit, AfterViewInit {
       if (inquiryType == "updateEnquiry") {
         this.isClaimUpdate = true;
       }
+      this.commonService.scrollUpPage();
     })
   }
 
@@ -132,13 +123,13 @@ export class CustomerComponent implements OnInit, AfterViewInit {
       caEmailAddress: formValue['email']
     }
     this.alertService.success("New Customer Inserted", false);
-    document.body.scrollTop = document.documentElement.scrollTop = 0;
     this._claimService.claimAdd(customerAddObj).subscribe((res: any) => {
       //Call alert to show notification
       console.log(res, 'Res for add claim')
       this.onReset();
       this.alertService.success("New Customer Inserted", false);
     });
+    this.commonService.scrollUpPage();
   }
 
   claimUpdate() {
@@ -176,6 +167,7 @@ export class CustomerComponent implements OnInit, AfterViewInit {
         this.isClaimUpdate = false;
         this.onReset();
       })
+      this.commonService.scrollUpPage();
       //once the update sucess then made the isupdtae false 
     }
 

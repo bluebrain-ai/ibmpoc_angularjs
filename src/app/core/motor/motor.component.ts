@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { IMotorInquiryResponse, IMotorPolicy } from 'src/app/model/motorPolicy';
 import { AlertService } from 'src/app/services/alert.service';
+import { CommonService } from 'src/app/services/common.service';
 import { MotorService } from 'src/app/services/policy/motor.service';
 
 @Component({
@@ -20,7 +21,7 @@ export class MotorComponent implements OnInit {
   noCustomerNo = false;
   noPolicyNo = false;
   isPolicyUpdate = false;
-  constructor(private formBuilder: FormBuilder, private _motorService: MotorService, private alertService: AlertService) { }
+  constructor(private formBuilder: FormBuilder, private _motorService: MotorService, private alertService: AlertService, private commonService: CommonService) { }
 
   ngOnInit(): void {
     this.motorForm = this.formBuilder.group({
@@ -107,6 +108,8 @@ export class MotorComponent implements OnInit {
           this.isPolicyUpdate = true;
         }
       })
+      this.commonService.scrollUpPage();
+
     }
     else {
       //Empty Else
@@ -124,6 +127,8 @@ export class MotorComponent implements OnInit {
         this.onReset();
         this.alertService.success("Motor Policy Deleted", false);
       })
+      this.commonService.scrollUpPage();
+
     }
   }
   policyAdd() {
@@ -154,14 +159,13 @@ export class MotorComponent implements OnInit {
       caMPremium: formValue['policyPremium'],
       caMAccidents: formValue['noOfAccident'],
     }
-    document.body.scrollTop = document.documentElement.scrollTop = 0;
     this._motorService.motorPolicyAdd(motorPolicyAddObj).subscribe((res: any) => {
       //Call alert to show notification
       console.log(res, 'Res for add claim')
       this.onReset();
       this.alertService.success("New Motor Policy Inserted", false);
     });
-
+    this.commonService.scrollUpPage();
   }
 
   policyUpdate() {
@@ -202,6 +206,8 @@ export class MotorComponent implements OnInit {
           this.alertService.success("Motor Policy Updated", false);
 
         })
+        this.commonService.scrollUpPage();
+
       }
 
     }

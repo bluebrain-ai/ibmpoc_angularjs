@@ -16,7 +16,7 @@ import { CommercialComponent } from './core/commercial/commercial.component';
 import { ClaimComponent } from './core/claim/claim.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AlertComponent } from './common/alert/alert.component';
-
+import { LoggerModule, NgxLoggerLevel } from "ngx-logger";
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +38,11 @@ import { AlertComponent } from './common/alert/alert.component';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    LoggerModule.forRoot({
+      serverLoggingUrl: '/api/logs',
+      level: NgxLoggerLevel.DEBUG,
+      serverLogLevel: NgxLoggerLevel.ERROR
+    }),
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent],
