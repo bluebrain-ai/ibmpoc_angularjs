@@ -19,6 +19,7 @@ export class CustomerComponent implements OnInit, AfterViewInit {
   submitted = false;
   noCustomerNo = false;
   isClaimUpdate = false;
+
   constructor(private formBuilder: FormBuilder, private _claimService: ClaimService, private alertService: AlertService, private commonService: CommonService) { }
   ngOnInit(): void {
     this.submitted = false;
@@ -31,11 +32,7 @@ export class CustomerComponent implements OnInit, AfterViewInit {
       customerFirstName: ['', Validators.maxLength(10)],
       customerLastName: ['', Validators.maxLength(20)],
       dob: [
-        '',
-        Validators.pattern(
-          /^\d{4}\/(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])$/
-        ),
-        ,
+        ''
       ],
       houseName: ['', Validators.maxLength(20)],
       houseNumber: ['', Validators.maxLength(20)],
@@ -122,7 +119,6 @@ export class CustomerComponent implements OnInit, AfterViewInit {
       caPhoneMobile: formValue['phoneMobile'],
       caEmailAddress: formValue['email']
     }
-    this.alertService.success("New Customer Inserted", false);
     this._claimService.claimAdd(customerAddObj).subscribe((res: any) => {
       //Call alert to show notification
       console.log(res, 'Res for add claim')
@@ -160,7 +156,6 @@ export class CustomerComponent implements OnInit, AfterViewInit {
         caPhoneMobile: formValue['phoneMobile'],
         caEmailAddress: formValue['email']
       }
-      this.alertService.success("Customer details updated", false);
       this._claimService.claimUpdate(customerUpdateObj).subscribe((res: any) => {
         //Call alert to show notification
         console.log(res, 'Res for add claim')
@@ -168,6 +163,8 @@ export class CustomerComponent implements OnInit, AfterViewInit {
         this.onReset();
       })
       this.commonService.scrollUpPage();
+      this.alertService.success("Customer details updated", false);
+
       //once the update sucess then made the isupdtae false 
     }
 
@@ -177,5 +174,11 @@ export class CustomerComponent implements OnInit, AfterViewInit {
     //Disable Error
     this.submitted = false;
     this.noCustomerNo = false;
+  }
+  dateInput(dateValue) {
+
+    this.customerForm.patchValue({
+      dob: this.commonService.formatDate(dateValue)
+    });
   }
 }

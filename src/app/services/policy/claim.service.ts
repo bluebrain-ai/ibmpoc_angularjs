@@ -7,6 +7,7 @@ import { IcustomerInquiryResponse } from 'src/app/model/customer';
 import { EndPoints } from 'src/app/constants/endPoints';
 import { NGXLogger } from "ngx-logger";
 import { CommonService } from '../common.service';
+import { LoaderService } from '../loader.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -26,6 +27,7 @@ export class ClaimService {
       caRequestId: '01ICUS',
       caCustomerNum: customerNo
     }
+    // this.loaderService.showloader();
     return this.httpClient.post<IcustomerInquiryResponse>(this.claimInquiryEndpoint + EndPoints.CLAIM_ENQUIRY, JSON.stringify(customerObj), this.httpHeader)
       .pipe(
         retry(1),
@@ -34,7 +36,6 @@ export class ClaimService {
   }
 
   claimAdd(customerDetails): Observable<any> {
-
     return this.httpClient.post(this.claimInquiryEndpoint + EndPoints.CLAIM_ADD, JSON.stringify(customerDetails), this.httpHeader)
       .pipe(
         retry(1),
@@ -43,7 +44,6 @@ export class ClaimService {
   }
 
   claimUpdate(customerDetails): Observable<any> {
-
     return this.httpClient.post(this.claimInquiryEndpoint + EndPoints.CLAIM_UPDATE, JSON.stringify(customerDetails), this.httpHeader)
       .pipe(
         retry(1),

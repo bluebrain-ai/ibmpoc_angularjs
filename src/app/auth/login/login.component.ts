@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ILogin } from 'src/app/interfaces/login';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoaderService } from 'src/app/services/loader.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,7 +17,9 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private loaderService: LoaderService
+
   ) { }
 
   ngOnInit() {
@@ -37,8 +40,9 @@ export class LoginComponent implements OnInit {
 
       return;
     } else {
-      console.log(this.message);
 
+      console.log(this.message);
+      this.loaderService.showloader();
       if (
         this.form.userid.value == this.model.userid &&
         this.form.password.value == this.model.password
@@ -49,6 +53,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('token', this.form.userid.value);
         this.router.navigate([this.returnUrl]);
+        this.loaderService.hideLoader();
       } else {
         this.message = 'Please check your userid and password';
       }

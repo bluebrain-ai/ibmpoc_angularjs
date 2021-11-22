@@ -14,9 +14,14 @@ import { EndowmentComponent } from './core/endowment/endowment.component';
 import { HouseComponent } from './core/house/house.component';
 import { CommercialComponent } from './core/commercial/commercial.component';
 import { ClaimComponent } from './core/claim/claim.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AlertComponent } from './common/alert/alert.component';
 import { LoggerModule, NgxLoggerLevel } from "ngx-logger";
+import { LoaderComponent } from './common/loader/loader.component';
+import { CustomerHttpInterceptor } from './services/http-interceptor';
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from "./common/material.module";
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,10 +36,12 @@ import { LoggerModule, NgxLoggerLevel } from "ngx-logger";
     CommercialComponent,
     ClaimComponent,
     AlertComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    MaterialModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
@@ -43,8 +50,10 @@ import { LoggerModule, NgxLoggerLevel } from "ngx-logger";
       level: NgxLoggerLevel.DEBUG,
       serverLogLevel: NgxLoggerLevel.ERROR
     }),
+    BrowserAnimationsModule,
+    MatDatepickerModule,
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: CustomerHttpInterceptor, multi: true }],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
