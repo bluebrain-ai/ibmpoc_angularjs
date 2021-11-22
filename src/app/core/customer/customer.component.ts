@@ -78,23 +78,31 @@ export class CustomerComponent implements OnInit, AfterViewInit {
       return;
     }
     this.noCustomerNo = false;
-    this._claimService.claimInquiry(formValue['customerNumber']).subscribe((res: IcustomerInquiryResponse) => {
-      this.customerForm.patchValue({
-        customerFirstName: res.caFirstName,
-        customerLastName: res.caLastName,
-        dob: res.caDob,
-        houseName: res.caHouseName,
-        houseNumber: res.caHouseNum,
-        postCode: res.caPostcode,
-        phoneHome: res.caPhoneHome,
-        phoneMobile: res.caPhoneMobile,
-        email: res.caEmailAddress,
-      });
+    this._claimService.claimInquiry(formValue['customerNumber']).subscribe((res: any) => {
 
-      if (inquiryType == "updateEnquiry") {
-        this.isClaimUpdate = true;
+      if (res.caCustomerRequest !== null) {
+        this.customerForm.patchValue({
+          customerFirstName: res.caCustomerRequest.caFirstName,
+          customerLastName: res.caCustomerRequest.caLastName,
+          dob: res.caCustomerRequest.caDob,
+          houseName: res.caCustomerRequest.caHouseName,
+          houseNumber: res.caCustomerRequest.caHouseNum,
+          postCode: res.caCustomerRequest.caPostcode,
+          phoneHome: res.caCustomerRequest.caPhoneHome,
+          phoneMobile: res.caCustomerRequest.caPhoneMobile,
+          email: res.caCustomerRequest.caEmailAddress,
+        });
+
+        if (inquiryType == "updateEnquiry") {
+          this.isClaimUpdate = true;
+        }
+      }
+      else {
+        this.alertService.success("Customer Number Unavailable..", false);
+
       }
       this.commonService.scrollUpPage();
+
     })
   }
 

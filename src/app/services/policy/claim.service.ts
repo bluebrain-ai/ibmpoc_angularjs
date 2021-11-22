@@ -22,13 +22,13 @@ export class ClaimService {
       'Content-Type': 'application/json'
     })
   }
-  claimInquiry(customerNo): Observable<IcustomerInquiryResponse> {
+  claimInquiry(customerNo): Observable<any> {
     let customerObj = {
       caRequestId: '01ICUS',
       caCustomerNum: customerNo
     }
     // this.loaderService.showloader();
-    return this.httpClient.post<IcustomerInquiryResponse>(this.claimInquiryEndpoint + EndPoints.CLAIM_ENQUIRY, JSON.stringify(customerObj), this.httpHeader)
+    return this.httpClient.post<any>(this.claimInquiryEndpoint + EndPoints.CLAIM_ENQUIRY, JSON.stringify(customerObj), this.httpHeader)
       .pipe(
         retry(1),
         catchError(this.commonService.processError)
