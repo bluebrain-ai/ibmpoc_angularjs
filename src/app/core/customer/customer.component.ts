@@ -175,10 +175,4 @@ export class CustomerComponent implements OnInit, AfterViewInit {
     this.submitted = false;
     this.noCustomerNo = false;
   }
-  dateInput(dateValue) {
-
-    this.customerForm.patchValue({
-      dob: this.commonService.formatDate(dateValue)
-    });
-  }
 }

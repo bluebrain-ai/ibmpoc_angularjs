@@ -19,9 +19,10 @@ import { AlertComponent } from './common/alert/alert.component';
 import { LoggerModule, NgxLoggerLevel } from "ngx-logger";
 import { LoaderComponent } from './common/loader/loader.component';
 import { CustomerHttpInterceptor } from './services/http-interceptor';
-import { MatDatepickerModule } from "@angular/material/datepicker";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from "./common/material.module";
+import { MatNativeDateModule } from '@angular/material/core';
+import { MomentDateModule } from '@angular/material-moment-adapter';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +52,8 @@ import { MaterialModule } from "./common/material.module";
       serverLogLevel: NgxLoggerLevel.ERROR
     }),
     BrowserAnimationsModule,
-    MatDatepickerModule,
+    MatNativeDateModule,
+    MomentDateModule
   ],
   providers: [AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: CustomerHttpInterceptor, multi: true }],
   bootstrap: [AppComponent],

@@ -25,11 +25,5 @@ export class CommonService {
   scrollUpPage() {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
   }
-  formatDate(dateValue) {
-    var dateObj = new Date(dateValue);
-    var month = dateObj.getUTCMonth() + 1; //months from 1-12
-    var day = dateObj.getUTCDate();
-    var year = dateObj.getUTCFullYear();
-    return `${year}/${month}/${day}`;
-  }
+
 }
