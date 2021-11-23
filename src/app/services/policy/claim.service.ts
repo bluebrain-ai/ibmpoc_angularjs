@@ -36,7 +36,13 @@ export class ClaimService {
   }
 
   claimAdd(customerDetails): Observable<any> {
-    return this.httpClient.post(this.claimInquiryEndpoint + EndPoints.CLAIM_ADD, JSON.stringify(customerDetails), this.httpHeader)
+    let customerObj = {
+      caRequestId: '01ACUS',
+      caCustomerRequest: customerDetails,
+      caCustomerNum: customerDetails.caCustomerNum
+    }
+
+    return this.httpClient.post(this.claimInquiryEndpoint + EndPoints.CLAIM_ADD, JSON.stringify(customerObj), this.httpHeader)
       .pipe(
         retry(1),
         catchError(this.commonService.processError)
@@ -44,7 +50,14 @@ export class ClaimService {
   }
 
   claimUpdate(customerDetails): Observable<any> {
-    return this.httpClient.post(this.claimInquiryEndpoint + EndPoints.CLAIM_UPDATE, JSON.stringify(customerDetails), this.httpHeader)
+
+    let customerObj = {
+      caRequestId: '01UCUS',
+      caCustomerRequest: customerDetails,
+      caCustomerNum: customerDetails.caCustomerNum
+
+    }
+    return this.httpClient.post(this.claimInquiryEndpoint + EndPoints.CLAIM_UPDATE, JSON.stringify(customerObj), this.httpHeader)
       .pipe(
         retry(1),
         catchError(this.commonService.processError)

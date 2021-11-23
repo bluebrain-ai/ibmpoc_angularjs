@@ -14,7 +14,6 @@ export interface IcustomerInquiryResponse {
 
 
 export interface IcustomerAddResponse {
-  caRequestId: string;
   caCustomerNum: string;
   caFirstName: string;
   caLastName: string;

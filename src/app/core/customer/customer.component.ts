@@ -115,7 +115,7 @@ export class CustomerComponent implements OnInit, AfterViewInit {
     }
     this.noCustomerNo = false;
     let customerAddObj: IcustomerAddResponse = {
-      caRequestId: '01ACUS',
+
       caCustomerNum: '0',
       caFirstName: formValue['customerFirstName'],
       caLastName: formValue['customerLasttName'],
@@ -152,7 +152,6 @@ export class CustomerComponent implements OnInit, AfterViewInit {
     else {
       //Update functionality
       let customerUpdateObj: IcustomerAddResponse = {
-        caRequestId: '01UCUS',
         caCustomerNum: formValue['customerNumber'],
         caFirstName: formValue['customerFirstName'],
         caLastName: formValue['customerLasttName'],
