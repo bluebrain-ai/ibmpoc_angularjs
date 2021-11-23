@@ -1,7 +1,7 @@
 export class EndPoints {
-    public static CLAIM_ENQUIRY = '/inquiry';
-    public static CLAIM_ADD = '/add';
-    public static CLAIM_UPDATE = '/update';
+    public static CLAIM_ENQUIRY = '/lgicus01';
+    public static CLAIM_ADD = '/lgacus01';
+    public static CLAIM_UPDATE = '/lgucus01';
 
     public static MOTOR_ENQUIRY = '/motorinquiry';
     public static MOTOR_ADD = '/motoradd';

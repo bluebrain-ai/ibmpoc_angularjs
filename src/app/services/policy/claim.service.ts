@@ -13,9 +13,7 @@ import { LoaderService } from '../loader.service';
 })
 export class ClaimService {
 
-  claimInquiryEndpoint = environment.customerPolicy
   constructor(private httpClient: HttpClient, private logger: NGXLogger, private commonService: CommonService) {
-    console.log(environment.customerPolicy);
   }
   httpHeader = {
     headers: new HttpHeaders({
@@ -28,7 +26,7 @@ export class ClaimService {
       caCustomerNum: customerNo
     }
     // this.loaderService.showloader();
-    return this.httpClient.post<any>(this.claimInquiryEndpoint + EndPoints.CLAIM_ENQUIRY, JSON.stringify(customerObj), this.httpHeader)
+    return this.httpClient.post<any>(environment.customerPolicyInquiry + EndPoints.CLAIM_ENQUIRY, JSON.stringify(customerObj), this.httpHeader)
       .pipe(
         retry(1),
         catchError(this.commonService.processError)
@@ -42,7 +40,7 @@ export class ClaimService {
       caCustomerNum: customerDetails.caCustomerNum
     }
 
-    return this.httpClient.post(this.claimInquiryEndpoint + EndPoints.CLAIM_ADD, JSON.stringify(customerObj), this.httpHeader)
+    return this.httpClient.post(environment.customerPolicyAdd + EndPoints.CLAIM_ADD, JSON.stringify(customerObj), this.httpHeader)
       .pipe(
         retry(1),
         catchError(this.commonService.processError)
@@ -57,7 +55,7 @@ export class ClaimService {
       caCustomerNum: customerDetails.caCustomerNum
 
     }
-    return this.httpClient.post(this.claimInquiryEndpoint + EndPoints.CLAIM_UPDATE, JSON.stringify(customerObj), this.httpHeader)
+    return this.httpClient.post(environment.customerPolicyUpdate + EndPoints.CLAIM_UPDATE, JSON.stringify(customerObj), this.httpHeader)
       .pipe(
         retry(1),
         catchError(this.commonService.processError)

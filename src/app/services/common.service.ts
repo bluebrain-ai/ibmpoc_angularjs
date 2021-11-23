@@ -14,7 +14,9 @@ export class CommonService {
     if (err.error instanceof ErrorEvent) {
       message = err.error.message;
     } else {
-      message = `Error Code: ${err.status}\nMessage: ${err.message}`;
+      // message = `Error Code: ${err.status}\nMessage: ${err.message}`;
+      message = `Error Code: ${err.status}\nMessage: ${err.error}`;
+
     }
     this.alertService.error(message);
     console.log(message);

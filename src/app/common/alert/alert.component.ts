@@ -22,6 +22,6 @@ export class AlertComponent implements OnInit {
   }
   hideAlert(): void {
     // something
-    setTimeout(() => this.message = '', 5000); // 3000 is millisecond
+    setTimeout(() => this.message = '', 10000); // 3000 is millisecond
   }
 }
