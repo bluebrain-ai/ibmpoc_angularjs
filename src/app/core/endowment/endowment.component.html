@@ -45,7 +45,16 @@
                     <label class="mb-2">Issue Date</label>
                 </div>
                 <div class="col-md-4">
-                    <input type="date" formControlName="issueDate" class="form-control textbox" data-date-format="YYYY/MM/DD" [ngClass]="{ 'is-invalid': submitted && f.issueDate.errors }" />
+                    <div class="input-group">
+                        <input matInput class="form-control textbox" formControlName="issueDate" [matDatepicker]="issueDate" [ngClass]="{ 'is-invalid': f.issueDate.errors }">
+                        <div class="input-group-append">
+                            <div class="input-group-text p-0">
+                                <mat-datepicker-toggle matSuffix [for]="issueDate"></mat-datepicker-toggle>
+                                <mat-datepicker #issueDate></mat-datepicker>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <input type="date" formControlName="issueDate" class="form-control textbox" data-date-format="YYYY/MM/DD" [ngClass]="{ 'is-invalid': submitted && f.issueDate.errors }" /> -->
 
                     <div *ngIf="submitted && f.issueDate.errors" class="invalid-feedback">
                         <div *ngIf="f.issueDate.errors.required">
@@ -65,7 +74,16 @@
                     <label class="mb-2">Expiry Date</label>
                 </div>
                 <div class="col-md-4">
-                    <input type="date" formControlName="expiryDate" class="form-control textbox" data-date-format="YYYY/MM/DD" [ngClass]="{ 'is-invalid': submitted && f.expiryDate.errors }" />
+                    <div class="input-group">
+                        <input matInput class="form-control textbox" formControlName="expiryDate" [matDatepicker]="expiryDate" [ngClass]="{ 'is-invalid': f.expiryDate.errors }">
+                        <div class="input-group-append">
+                            <div class="input-group-text p-0">
+                                <mat-datepicker-toggle matSuffix [for]="expiryDate"></mat-datepicker-toggle>
+                                <mat-datepicker #expiryDate></mat-datepicker>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <input type="date" formControlName="expiryDate" class="form-control textbox" data-date-format="YYYY/MM/DD" [ngClass]="{ 'is-invalid': submitted && f.expiryDate.errors }" /> -->
 
                     <div *ngIf="submitted && f.expiryDate.errors" class="invalid-feedback">
                         <div *ngIf="f.expiryDate.errors.required">

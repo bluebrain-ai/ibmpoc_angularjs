@@ -28,6 +28,4 @@ export interface IEndowmentPolicy {
     caEWithProfits: string;
     caEManagedFund: string;
     caEEquities: string;
-
-
 }

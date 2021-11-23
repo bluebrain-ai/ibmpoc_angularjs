@@ -5,6 +5,10 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { IHousePolicy } from 'src/app/model/house';
+import { AlertService } from 'src/app/services/alert.service';
+import { CommonService } from 'src/app/services/common.service';
+import { HouseService } from 'src/app/services/policy/house.service';
 
 @Component({
   selector: 'app-house',
@@ -14,80 +18,212 @@ import {
 export class HouseComponent implements OnInit {
   houseForm: FormGroup;
   submitted = false;
-  constructor(private formBuilder: FormBuilder) {}
+  noCustomerNo = false;
+  noPolicyNo = false;
+  isPolicyUpdate = false;
+  constructor(private formBuilder: FormBuilder, private _houseService: HouseService, private alertService: AlertService, private commonService: CommonService) { }
 
   ngOnInit(): void {
     this.houseForm = this.formBuilder.group({
       policyNumber: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('^[0-9]*$'),
-          Validators.maxLength(10),
-        ],
+        ''
       ],
       customerNumber: [
-        '',
-        [Validators.required, Validators.pattern('^[0-9]*$')],
+        ''
       ],
       issueDate: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(
-            /^\d{4}\/(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])$/
-          ),
-        ],
+        ''
       ],
       expiryDate: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(
-            /^\d{4}\/(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])$/
-          ),
-        ],
+        ''
       ],
-      propertyType: ['', [Validators.required, Validators.maxLength(15)]],
+      propertyType: [''],
 
       bedRooms: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('^[0-9]*$'),
-          Validators.maxLength(3),
-        ],
+        ''
       ],
 
       HouseValue: [
-        '',
-        [
-          Validators.required,
-          Validators.maxLength(8),
-          Validators.pattern('^[0-9]*$'),
-        ],
+        ''
       ],
-      houseName: ['', [Validators.required, Validators.maxLength(20)]],
-      houseNumber: ['', [Validators.required, Validators.maxLength(4)]],
-      postCode: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      houseName: [''],
+      houseNumber: [''],
+      postCode: [''],
     });
   }
   get f(): { [key: string]: AbstractControl } {
     return this.houseForm.controls;
   }
 
-  onSubmit(): void {
-    this.submitted = true;
-
-    if (this.houseForm.invalid) {
-      return;
-    }
-
-    console.log(JSON.stringify(this.houseForm.value, null, 2));
-  }
-
+  // entire screen reset
   onReset(): void {
     this.submitted = false;
+    this.noCustomerNo = false;
+    this.noPolicyNo = false;
+    this.isPolicyUpdate = false;
     this.houseForm.reset();
+    this.commonService.scrollUpPage();
+
+  }
+  // Reset validation before on any button click
+  resetValidation() {
+    this.submitted = false;
+    this.noCustomerNo = false;
+    this.noPolicyNo = false;
+  }
+  // Hide the validation error notification on keyup
+  requiredFieldKeyUp(inputName) {
+    //Disable Error
+    if (inputName == "CustomerNo") {
+      this.noCustomerNo = false;
+    }
+    if (inputName == "PolicyNo") {
+      this.noPolicyNo = false;
+    }
+
+    if (this.noCustomerNo != true && this.noPolicyNo != true) {
+      this.submitted = false
+    }
+  }
+  // Validate the required feilds
+  validation(formValue): boolean {
+    if (formValue['customerNumber'] == null || formValue['customerNumber'] == "") {
+      this.noCustomerNo = true;
+    }
+    else {
+      this.noCustomerNo = false;
+
+    }
+    if (formValue['policyNumber'] == null || formValue['policyNumber'] == "") {
+      this.noPolicyNo = true;
+    }
+    else {
+      this.noPolicyNo = false;
+    }
+    if (this.noCustomerNo != true && this.noPolicyNo != true) {
+      return true;
+    }
+    return false;
+
+  }
+  policyInquiry(inquiryType: string = ''): void {
+    this.resetValidation();
+    this.submitted = true;
+    let formValue = this.houseForm.value;
+    if (this.validation(formValue)) {
+      this.noCustomerNo = false;
+      this.noPolicyNo = false;
+      // Motor Policy Inquiry
+      this._houseService.housePolicyInquiry(formValue['policyNumber'], formValue['customerNumber']).subscribe((res: any) => {
+        this.houseForm.patchValue({
+          issueDate: res.caHouse.caIssueDate,
+          expiryDate: res.caHouse.caExpiryDate,
+          propertyType: res.caHouse.caHPropertyType,
+          bedRooms: res.caHouse.caHBedrooms,
+          HouseValue: res.caHouse.caHValue,
+          houseName: res.caHouse.caHHouseName,
+          houseNumber: res.caHouse.caHHouseNumber,
+          postCode: res.caHouse.caHPostcode
+        });
+        if (inquiryType == "updateEnquiry") {
+          this.isPolicyUpdate = true;
+        }
+      })
+      this.commonService.scrollUpPage();
+
+    }
+    else {
+      //Empty Else
+    }
+  }
+
+  policyDelete(): void {
+    this.resetValidation();
+    this.submitted = true;
+    let formValue = this.houseForm.value;
+    if (this.validation(formValue)) {
+      this._houseService.housePolicyDelete(formValue['policyNumber'], formValue['customerNumber']).subscribe((res: any) => {
+        //Call alert to show notification
+        this.onReset();
+        this.alertService.success("House Policy Deleted", false);
+      })
+      this.commonService.scrollUpPage();
+
+    }
+  }
+  policyAdd() {
+    this.resetValidation();
+    this.submitted = true;
+    let formValue = this.houseForm.value;
+    if (formValue['customerNumber'] == null || formValue['customerNumber'] == "") {
+      this.noCustomerNo = true;
+      return;
+    }
+    this.noCustomerNo = false;
+    this.noPolicyNo = false;
+    let housePolicyAddObj: IHousePolicy = {
+      caRequestId: '01AHOU',
+      caCustomerNum: formValue['customerNumber'],
+      caPayment: "0",
+      caBrokerid: "0",
+      caBrokersref: '        ',
+      caIssueDate: formValue['issueDate'],
+      caExpiryDate: formValue['expiryDate'],
+      caHPropertyType: formValue['propertyType'],
+      caHBedrooms: formValue['bedRooms'],
+      caHValue: formValue['HouseValue'],
+      caHHouseName: formValue['houseName'],
+      caHHouseNumber: formValue['houseNumber'],
+      caHPostcode: formValue['postCode']
+    }
+    this._houseService.housePolicyAdd(housePolicyAddObj).subscribe((res: any) => {
+      //Call alert to show notification
+      this.onReset();
+      this.alertService.success("New Life Policy Inserted", false);
+    });
+    this.commonService.scrollUpPage();
+
+
+  }
+
+  policyUpdate() {
+    this.resetValidation();
+    this.submitted = true;
+    let formValue = this.houseForm.value;
+    if (this.validation(formValue)) {
+      // for update first Call Enquiry and populate the form and once the data changes then recall the Update 
+      if (this.isPolicyUpdate == false) {
+        this.policyInquiry('updateEnquiry');
+        this.isPolicyUpdate = true;
+      }
+      else {
+        //Update functionality
+        let housePolicyAddObj: IHousePolicy = {
+          caRequestId: '01UHOU',
+          caCustomerNum: formValue['customerNumber'],
+          caPayment: "0",
+          caBrokerid: "0",
+          caBrokersref: '        ',
+          caIssueDate: formValue['issueDate'],
+          caExpiryDate: formValue['expiryDate'],
+          caHPropertyType: formValue['propertyType'],
+          caHBedrooms: formValue['bedRooms'],
+          caHValue: formValue['HouseValue'],
+          caHHouseName: formValue['houseName'],
+          caHHouseNumber: formValue['houseNumber'],
+          caHPostcode: formValue['postCode']
+        }
+        this._houseService.housePolicyUpdate(housePolicyAddObj).subscribe((res: any) => {
+          //Call alert to show notification
+          this.isPolicyUpdate = false;
+          this.onReset();
+          this.alertService.success("House Policy Updated", false);
+
+        })
+        this.commonService.scrollUpPage();
+      }
+
+    }
+
   }
 }

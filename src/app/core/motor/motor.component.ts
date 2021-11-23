@@ -58,16 +58,10 @@ export class MotorComponent implements OnInit {
       carColor: ['', Validators.maxLength(8)],
       cc: ['', Validators.maxLength(8)],
       manufactureDate: [
-        '',
-
-        Validators.pattern(
-          /^\d{4}\/(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])$/
-        ),
-        ,
+        ''
       ],
       noOfAccident: [
         '',
-
         Validators.pattern('^[0-9]*$'),
         ,
       ],
@@ -90,19 +84,19 @@ export class MotorComponent implements OnInit {
       this.noCustomerNo = false;
       this.noPolicyNo = false;
       // Motor Policy Inquiry
-      this._motorService.motorPolicyInquiry(formValue['policyNumber'], formValue['customerNumber']).subscribe((res: IMotorInquiryResponse) => {
+      this._motorService.motorPolicyInquiry(formValue['policyNumber'], formValue['customerNumber']).subscribe((res: any) => {
         this.motorForm.patchValue({
-          issueDate: res.caIssueDate,
-          expiryDate: res.caExpiryDate,
-          carMake: res.caMMake,
-          carModel: res.caMModel,
-          carValue: res.caMValue,
-          registration: res.caMRegnumber,
-          carColor: res.caMColour,
-          cc: res.caMCc,
-          manufactureDate: res.caMManufactured,
-          policyPremium: res.caMPremium,
-          noOfAccident: res.caMAccidents
+          issueDate: res.caMotor.caIssueDate,
+          expiryDate: res.caMotor.caExpiryDate,
+          carMake: res.caMotor.caMMake,
+          carModel: res.caMotor.caMModel,
+          carValue: res.caMotor.caMValue,
+          registration: res.caMotor.caMRegnumber,
+          carColor: res.caMotor.caMColour,
+          cc: res.caMotor.caMCc,
+          manufactureDate: res.caMotor.caMManufactured,
+          policyPremium: res.caMotor.caMPremium,
+          noOfAccident: res.caMotor.caMAccidents
         });
         if (inquiryType == "updateEnquiry") {
           this.isPolicyUpdate = true;
@@ -123,7 +117,6 @@ export class MotorComponent implements OnInit {
     if (this.validation(formValue)) {
       this._motorService.motorPolicyDelete(formValue['policyNumber'], formValue['customerNumber']).subscribe((res: any) => {
         //Call alert to show notification
-        console.log(res, 'Res for delete Motor')
         this.onReset();
         this.alertService.success("Motor Policy Deleted", false);
       })
@@ -161,7 +154,6 @@ export class MotorComponent implements OnInit {
     }
     this._motorService.motorPolicyAdd(motorPolicyAddObj).subscribe((res: any) => {
       //Call alert to show notification
-      console.log(res, 'Res for add claim')
       this.onReset();
       this.alertService.success("New Motor Policy Inserted", false);
     });
@@ -200,11 +192,9 @@ export class MotorComponent implements OnInit {
         }
         this._motorService.motorPolicyUpdate(motorPolicyAddObj).subscribe((res: any) => {
           //Call alert to show notification
-          console.log(res, 'Res for policy updated')
           this.isPolicyUpdate = false;
           this.onReset();
           this.alertService.success("Motor Policy Updated", false);
-
         })
         this.commonService.scrollUpPage();
 

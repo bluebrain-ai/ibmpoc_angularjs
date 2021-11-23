@@ -4,16 +4,14 @@ import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { EndPoints } from 'src/app/constants/endPoints';
-import { IMotorInquiryResponse } from 'src/app/model/motorPolicy';
+import { CommonService } from '../common.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MotorService {
 
-  motorPolicyEndpoint = environment.customerPolicy
-  constructor(private httpClient: HttpClient) {
-    console.log(environment.customerPolicy);
+  constructor(private httpClient: HttpClient, private commonService: CommonService) {
   }
   httpHeader = {
     headers: new HttpHeaders({
@@ -21,16 +19,16 @@ export class MotorService {
     })
   }
 
-  motorPolicyInquiry(policyNo: string, customerNo: string): Observable<IMotorInquiryResponse> {
+  motorPolicyInquiry(policyNo: string, customerNo: string): Observable<any> {
     let motoyPolicyObj = {
       caRequestId: '01IMOT',
       caCustomerNum: customerNo,
       caPolicyNum: policyNo
     }
-    return this.httpClient.post<IMotorInquiryResponse>(this.motorPolicyEndpoint + EndPoints.MOTOR_ENQUIRY, JSON.stringify(motoyPolicyObj), this.httpHeader)
+    return this.httpClient.post<any>(environment.motorInquiry + EndPoints.MOTOR_ENQUIRY, JSON.stringify(motoyPolicyObj), this.httpHeader)
       .pipe(
         retry(1),
-        catchError(this.processError)
+        catchError(this.commonService.processError)
       )
   }
 
@@ -40,41 +38,40 @@ export class MotorService {
       caCustomerNum: customerNo,
       caPolicyNum: policyNo
     }
-    return this.httpClient.post<any>(this.motorPolicyEndpoint + EndPoints.MOTOR_DELETE, JSON.stringify(motoyPolicyObj), this.httpHeader)
+    return this.httpClient.post<any>(environment.motorDelete + EndPoints.MOTOR_DELETE, JSON.stringify(motoyPolicyObj), this.httpHeader)
       .pipe(
         retry(1),
-        catchError(this.processError)
+        catchError(this.commonService.processError)
       )
   }
 
   motorPolicyAdd(motorPolicyDetails): Observable<any> {
 
-    return this.httpClient.post(this.motorPolicyEndpoint + EndPoints.MOTOR_ADD, JSON.stringify(motorPolicyDetails), this.httpHeader)
+    let motoyPolicyObj = {
+      caRequestId: '01AMOT',
+      caCustomerNum: motorPolicyDetails.caCustomerNum,
+      caMotor: motorPolicyDetails
+    }
+    return this.httpClient.post(environment.motorAdd + EndPoints.MOTOR_ADD, JSON.stringify(motoyPolicyObj), this.httpHeader)
       .pipe(
         retry(1),
-        catchError(this.processError)
+        catchError(this.commonService.processError)
       )
   }
 
   motorPolicyUpdate(motorPolicyDetails): Observable<any> {
-
-    return this.httpClient.post(this.motorPolicyEndpoint + EndPoints.MOTOR_UPDATE, JSON.stringify(motorPolicyDetails), this.httpHeader)
+    let motoyPolicyObj = {
+      caRequestId: '01UMOT',
+      caCustomerNum: motorPolicyDetails.caCustomerNum,
+      caMotor: motorPolicyDetails
+    }
+    return this.httpClient.post(environment.motorUpdate + EndPoints.MOTOR_UPDATE, JSON.stringify(motoyPolicyObj), this.httpHeader)
       .pipe(
         retry(1),
-        catchError(this.processError)
+        catchError(this.commonService.processError)
       )
   }
 
 
 
-  processError(err) {
-    let message = '';
-    if (err.error instanceof ErrorEvent) {
-      message = err.error.message;
-    } else {
-      message = `Error Code: ${err.status}\nMessage: ${err.message}`;
-    }
-    console.log(message);
-    return throwError(message);
-  }
 }

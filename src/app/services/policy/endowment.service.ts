@@ -5,15 +5,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { EndPoints } from 'src/app/constants/endPoints';
 import { IEndowmentInquiryResponse } from 'src/app/model/endowmentPolicy';
+import { CommonService } from '../common.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EndowmentService {
 
-  endowmentPolicyEndpoint = environment.customerPolicy
-  constructor(private httpClient: HttpClient) {
-    console.log(environment.customerPolicy);
+  constructor(private httpClient: HttpClient, private commonService: CommonService) {
   }
   httpHeader = {
     headers: new HttpHeaders({
@@ -21,60 +20,59 @@ export class EndowmentService {
     })
   }
 
-  motorPolicyInquiry(policyNo: string, customerNo: string): Observable<IEndowmentInquiryResponse> {
-    let motoyPolicyObj = {
+  motorPolicyInquiry(policyNo: string, customerNo: string): Observable<any> {
+    let endowmentPolicyobj = {
       caRequestId: '01IEND',
       caCustomerNum: customerNo,
       caPolicyNum: policyNo
     }
-    return this.httpClient.post<IEndowmentInquiryResponse>(this.endowmentPolicyEndpoint + EndPoints.ENDOWMENT_ENQUIRY, JSON.stringify(motoyPolicyObj), this.httpHeader)
+    return this.httpClient.post<any>(environment.endowmentInquiry + EndPoints.ENDOWMENT_ENQUIRY, JSON.stringify(endowmentPolicyobj), this.httpHeader)
       .pipe(
         retry(1),
-        catchError(this.processError)
+        catchError(this.commonService.processError)
       )
   }
 
   motorPolicyDelete(policyNo: string, customerNo: string): Observable<any> {
-    let motoyPolicyObj = {
+    let endowmentPolicyobj = {
       caRequestId: '01DEND',
       caCustomerNum: customerNo,
       caPolicyNum: policyNo
     }
-    return this.httpClient.post<any>(this.endowmentPolicyEndpoint + EndPoints.ENDOWMENT_DELETE, JSON.stringify(motoyPolicyObj), this.httpHeader)
+    return this.httpClient.post<any>(environment.endowmentDelete + EndPoints.ENDOWMENT_DELETE, JSON.stringify(endowmentPolicyobj), this.httpHeader)
       .pipe(
         retry(1),
-        catchError(this.processError)
+        catchError(this.commonService.processError)
       )
   }
 
   motorPolicyAdd(endowmentPolicyDetails): Observable<any> {
-
-    return this.httpClient.post(this.endowmentPolicyEndpoint + EndPoints.ENDOWMENT_ADD, JSON.stringify(endowmentPolicyDetails), this.httpHeader)
+    let endowmentPolicyobj = {
+      caRequestId: '01AEND',
+      caCustomerNum: endowmentPolicyDetails.caCustomerNum,
+      caEndowment: endowmentPolicyDetails
+    }
+    return this.httpClient.post(environment.endowmentAdd + EndPoints.ENDOWMENT_ADD, JSON.stringify(endowmentPolicyobj), this.httpHeader)
       .pipe(
         retry(1),
-        catchError(this.processError)
+        catchError(this.commonService.processError)
       )
   }
 
   motorPolicyUpdate(endowmentPolicyDetails): Observable<any> {
-
-    return this.httpClient.post(this.endowmentPolicyEndpoint + EndPoints.ENDOWMENT_UPDATE, JSON.stringify(endowmentPolicyDetails), this.httpHeader)
+    let endowmentPolicyobj = {
+      caRequestId: '01UEND',
+      caCustomerNum: endowmentPolicyDetails.caCustomerNum,
+      caEndowment: endowmentPolicyDetails
+    }
+    return this.httpClient.post(environment.endowmentUpdate + EndPoints.ENDOWMENT_UPDATE, JSON.stringify(endowmentPolicyobj), this.httpHeader)
       .pipe(
         retry(1),
-        catchError(this.processError)
+        catchError(this.commonService.processError)
       )
   }
 
 
 
-  processError(err) {
-    let message = '';
-    if (err.error instanceof ErrorEvent) {
-      message = err.error.message;
-    } else {
-      message = `Error Code: ${err.status}\nMessage: ${err.message}`;
-    }
-    console.log(message);
-    return throwError(message);
-  }
+
 }

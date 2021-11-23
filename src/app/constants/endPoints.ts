@@ -13,4 +13,9 @@ export class EndPoints {
     public static ENDOWMENT_UPDATE = '/endowmentupdate';
     public static ENDOWMENT_DELETE = '/endowmentdelete';
 
+    public static HOUSE_ENQUIRY = '/houseinquiry';
+    public static HOUSE_ADD = '/houseadd';
+    public static HOUSE_UPDATE = '/houseupdate';
+    public static HOUSE_DELETE = '/housedelete';
+
 }

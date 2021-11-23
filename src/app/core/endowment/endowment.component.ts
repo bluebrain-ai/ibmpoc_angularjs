@@ -26,57 +26,35 @@ export class EndowmentComponent implements OnInit {
   ngOnInit(): void {
     this.endowmentForm = this.formBuilder.group({
       policyNumber: [
-        '',
-        Validators.pattern('^[0-9]*$'),
+        ''
       ],
       customerNumber: [
-        '',
-        Validators.pattern('^[0-9]*$'),
+        ''
       ],
       issueDate: [
-        '',
-
-        Validators.pattern(
-          /^\d{4}\/(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])$/
-        ),
-        ,
+        ''
       ],
       expiryDate: [
-        '',
-
-        Validators.pattern(
-          /^\d{4}\/(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])$/
-        ),
-        ,
+        ''
       ],
-      fundName: ['', Validators.maxLength(10)],
-      term: ['', Validators.maxLength(2)],
+      fundName: [''],
+      term: [''],
 
       sumAssured: [
         '',
-
-        Validators.pattern('^[0-9]*$'),
       ],
       lifeAssured: [
-        '',
-
-        Validators.pattern('^[0-9]*$'),
+        ''
       ],
 
       withProfits: [
-        '',
-
-        Validators.pattern('^[0-9]*$'),
-        ,
+        ''
       ],
       equities: [
-        '',
-
-        Validators.pattern('^[0-9]*$'),
+        ''
       ],
       managedFunds: [
-        '',
-        Validators.pattern('^[0-9]*$'),
+        ''
       ],
     });
   }
@@ -145,17 +123,17 @@ export class EndowmentComponent implements OnInit {
       this.noCustomerNo = false;
       this.noPolicyNo = false;
       // Motor Policy Inquiry
-      this._endowmentService.motorPolicyInquiry(formValue['policyNumber'], formValue['customerNumber']).subscribe((res: IEndowmentInquiryResponse) => {
+      this._endowmentService.motorPolicyInquiry(formValue['policyNumber'], formValue['customerNumber']).subscribe((res: any) => {
         this.endowmentForm.patchValue({
-          issueDate: res.caIssueDate,
-          expiryDate: res.caExpiryDate,
-          fundName: res.caEFundName,
-          term: res.caETerm,
-          sumAssured: res.caESumAssured,
-          lifeAssured: res.caELifeAssured,
-          withProfits: res.caEWithProfits,
-          equities: res.caEEquities,
-          managedFunds: res.caEManagedFund
+          issueDate: res.caEndowment.caIssueDate,
+          expiryDate: res.caEndowment.caExpiryDate,
+          fundName: res.caEndowment.caEFundName,
+          term: res.caEndowment.caETerm,
+          sumAssured: res.caEndowment.caESumAssured,
+          lifeAssured: res.caEndowment.caELifeAssured,
+          withProfits: res.caEndowment.caEWithProfits,
+          equities: res.caEndowment.caEEquities,
+          managedFunds: res.caEndowment.caEManagedFund
         });
         if (inquiryType == "updateEnquiry") {
           this.isPolicyUpdate = true;
@@ -178,7 +156,7 @@ export class EndowmentComponent implements OnInit {
         //Call alert to show notification
         console.log(res, 'Res for delete Motor')
         this.onReset();
-        this.alertService.success("Motor Policy Deleted", false);
+        this.alertService.success("Life Policy Deleted", false);
       })
       this.commonService.scrollUpPage();
 
@@ -210,7 +188,6 @@ export class EndowmentComponent implements OnInit {
       caEManagedFund: formValue['managedFunds'],
       caEEquities: formValue['equities']
     }
-    document.body.scrollTop = document.documentElement.scrollTop = 0;
     this._endowmentService.motorPolicyAdd(endowmentPolicyAddObj).subscribe((res: any) => {
       //Call alert to show notification
       console.log(res, 'Res for add claim')
@@ -235,7 +212,7 @@ export class EndowmentComponent implements OnInit {
       else {
         //Update functionality
         let endowmentPolicyAddObj: IEndowmentPolicy = {
-          caRequestId: '01AEND',
+          caRequestId: '01UEND',
           caCustomerNum: formValue['customerNumber'],
           caPayment: "0",
           caBrokerid: "0",

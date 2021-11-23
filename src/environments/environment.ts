@@ -10,6 +10,22 @@ export const environment = {
   customerPolicyAdd: 'http://localhost:9082',
   customerPolicyUpdate: 'http://localhost:8080',
 
+  motorInquiry: 'http://localhost:8080',
+  motorAdd: 'http://localhost:9082',
+  motorUpdate: 'http://localhost:8080',
+  motorDelete: 'http://localhost:8080',
+
+
+  endowmentInquiry: 'http://localhost:8080',
+  endowmentAdd: 'http://localhost:9082',
+  endowmentUpdate: 'http://localhost:8080',
+  endowmentDelete: 'http://localhost:8080',
+
+  houseInquiry: 'http://localhost:8080',
+  houseAdd: 'http://localhost:9082',
+  houseUpdate: 'http://localhost:8080',
+  houseDelete: 'http://localhost:8080',
+
 };
 
 /*

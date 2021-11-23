@@ -3,17 +3,15 @@ import { retry, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { IcustomerInquiryResponse } from 'src/app/model/customer';
 import { EndPoints } from 'src/app/constants/endPoints';
 import { NGXLogger } from "ngx-logger";
 import { CommonService } from '../common.service';
-import { LoaderService } from '../loader.service';
 @Injectable({
   providedIn: 'root'
 })
 export class ClaimService {
 
-  constructor(private httpClient: HttpClient, private logger: NGXLogger, private commonService: CommonService) {
+  constructor(private httpClient: HttpClient, private commonService: CommonService) {
   }
   httpHeader = {
     headers: new HttpHeaders({

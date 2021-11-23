@@ -45,7 +45,17 @@
                     <label class="mb-2">Claim Date</label>
                 </div>
                 <div class="col-md-4">
-                    <input type="date" formControlName="claimDate" class="form-control textbox" data-date-format="YYYY/MM/DD" [ngClass]="{ 'is-invalid': submitted && f.claimDate.errors }" />
+                    <div class="input-group">
+                        <input matInput class="form-control textbox" formControlName="claimDate" [matDatepicker]="claimDate" [ngClass]="{ 'is-invalid': f.claimDate.errors }">
+                        <div class="input-group-append">
+                            <div class="input-group-text p-0">
+                                <mat-datepicker-toggle matSuffix [for]="claimDate"></mat-datepicker-toggle>
+                                <mat-datepicker #claimDate></mat-datepicker>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <input type="date" formControlName="claimDate" class="form-control textbox" data-date-format="YYYY/MM/DD" [ngClass]="{ 'is-invalid': submitted && f.claimDate.errors }" /> -->
 
                     <div *ngIf="submitted && f.claimDate.errors" class="invalid-feedback">
                         <div *ngIf="f.claimDate.errors.required">

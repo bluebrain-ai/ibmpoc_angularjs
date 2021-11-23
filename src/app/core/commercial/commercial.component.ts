@@ -14,67 +14,44 @@ import {
 export class CommercialComponent implements OnInit {
   commercialForm: FormGroup;
   submitted = false;
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.commercialForm = this.formBuilder.group({
       policyNumber: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('^[0-9]*$'),
-          Validators.maxLength(10),
-        ],
+        ''
       ],
       customerNumber: [
-        '',
-        [Validators.required, Validators.pattern('^[0-9]*$')],
+        ''
       ],
       startDate: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(
-            /^\d{4}\/(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])$/
-          ),
-        ],
+        ''
       ],
       expiryDate: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(
-            /^\d{4}\/(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])$/
-          ),
-        ],
+        ''
       ],
-      address: ['', [Validators.required, Validators.maxLength(10)]],
+      address: [''],
       postalCode: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('^[0-9]*$'),
-          Validators.maxLength(8),
-        ],
+        ''
       ],
-      latitude: ['', [Validators.required, Validators.maxLength(11)]],
+      latitude: [''],
 
-      longitude: ['', [Validators.required, Validators.maxLength(11)]],
-      customerName: ['', [Validators.required, Validators.maxLength(25)]],
+      longitude: [''],
+      customerName: [''],
 
-      firePeril: ['', [Validators.required, Validators.maxLength(4)]],
-      firePrem: ['', [Validators.required, Validators.maxLength(8)]],
+      firePeril: [''],
+      firePrem: [''],
 
-      crimePeril: ['', [Validators.required, Validators.maxLength(4)]],
-      crimePrem: ['', [Validators.required, Validators.maxLength(8)]],
-      floodPeril: ['', [Validators.required, Validators.maxLength(4)]],
-      floodPrem: ['', [Validators.required, Validators.maxLength(8)]],
+      crimePeril: [''],
+      crimePrem: [''],
+      floodPeril: [''],
+      floodPrem: [''],
 
-      weatherPeril: ['', [Validators.required, Validators.maxLength(4)]],
-      weatherPrem: ['', [Validators.required, Validators.maxLength(8)]],
+      weatherPeril: [''],
+      weatherPrem: [''],
 
-      status: ['', [Validators.required, Validators.maxLength(4)]],
-      rejectReason: ['', [Validators.required, Validators.maxLength(25)]],
+      status: [''],
+      rejectReason: [''],
     });
   }
   get f(): { [key: string]: AbstractControl } {
