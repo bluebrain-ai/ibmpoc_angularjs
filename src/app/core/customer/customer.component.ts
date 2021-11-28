@@ -109,17 +109,17 @@ export class CustomerComponent implements OnInit, AfterViewInit {
   claimAdd() {
     this.submitted = true;
     let formValue = this.customerForm.value;
-    if (formValue['customerNumber'] == null || formValue['customerNumber'] == "") {
-      this.noCustomerNo = true;
-      return;
-    }
+    // if (formValue['customerNumber'] == null || formValue['customerNumber'] == "") {
+    //   this.noCustomerNo = true;
+    //   return;
+    // }
     this.noCustomerNo = false;
     let customerAddObj: IcustomerAddResponse = {
 
       caCustomerNum: '0',
       caFirstName: formValue['customerFirstName'],
-      caLastName: formValue['customerLasttName'],
-      caDob: formValue['dob'],
+      caLastName: formValue['customerLastName'],
+      caDob: this.commonService.WithoutTime(formValue['dob']),
       caHouseName: formValue['houseName'],
       caHouseNum: formValue['houseNumber'],
       caPostcode: formValue['postCode'],
@@ -154,8 +154,8 @@ export class CustomerComponent implements OnInit, AfterViewInit {
       let customerUpdateObj: IcustomerAddResponse = {
         caCustomerNum: formValue['customerNumber'],
         caFirstName: formValue['customerFirstName'],
-        caLastName: formValue['customerLasttName'],
-        caDob: formValue['dob'],
+        caLastName: formValue['customerLastName'],
+        caDob: this.commonService.WithoutTime(formValue['dob']),
         caHouseName: formValue['houseName'],
         caHouseNum: formValue['houseNumber'],
         caPostcode: formValue['postCode'],

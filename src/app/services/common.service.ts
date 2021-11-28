@@ -27,5 +27,16 @@ export class CommonService {
   scrollUpPage() {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
   }
-
+  WithoutTime(dateTime) {
+    if (dateTime != null && dateTime != '') {
+      var date = new Date(dateTime);
+      var year = date.getFullYear();
+      var month = Number(date.getMonth()) + Number(1);
+      var day = date.getDate()
+      return year + '-' + month + '-' + day;
+    }
+    else {
+      return null;
+    }
+  }
 }
