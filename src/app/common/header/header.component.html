@@ -1,18 +1,34 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
     <a class="navbar-brand ms-4" href="/home">BlueScript</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-    <div class="navbar-expand collapse navbar-collapse ">
-        <div class="navbar-nav m-auto">
-            <a class="nav-item nav-link" routerLink="customer">Customer</a>
-            <a class="nav-item nav-link" routerLink="motor">Motor</a>
-            <a class="nav-item nav-link" routerLink="endowment">Endowment</a>
-            <a class="nav-item nav-link" routerLink="house">House</a>
-            <a class="nav-item nav-link" routerLink="commercial">Commercial Property</a
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- <div class="navbar-nav m-auto"> -->
+        <ul class="navbar-nav m-auto ">
+            <li class="nav-item ms-2">
+                <a class="nav-item nav-link" routerLinkActive="active" routerLink="customer">Customer</a>
+            </li>
+            <li class="nav-item ms-2">
+                <a class="nav-item nav-link" routerLinkActive="active" routerLink="motor">Motor</a>
+            </li>
+            <li class="nav-item ms-2">
+
+                <a class="nav-item nav-link" routerLinkActive="active" routerLink="endowment">Endowment</a>
+            </li>
+            <li class="nav-item ms-2">
+                <a class="nav-item nav-link" routerLinkActive="active" routerLink="house">House</a>
+            </li>
+            <li class="nav-item ms-2">
+                <a class="nav-item nav-link" routerLinkActive="active" routerLink="commercial">Commercial Property</a
+                
       >
-      <a class="nav-item nav-link" routerLink="claim">Claim </a>
-        </div>
+      </li>
+                <li class="nav-item ms-2">
+       <a class="nav-item nav-link" routerLinkActive="active" routerLink="claim">Claim </a>
+            </li>
+        </ul>
+        <!-- </div> -->
 
         <form class="form-inline mx-2 my-2 my-lg-0">
             <button class="btn btn-outline-success my-2 my-sm-0" routerLink="login" type="submit">Logout</button>
