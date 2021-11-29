@@ -162,7 +162,7 @@ export class HouseComponent implements OnInit {
     this.noCustomerNo = false;
     this.noPolicyNo = false;
     let housePolicyAddObj: IHousePolicy = {
-      caRequestId: '01AHOU',
+      // caRequestId: '01AHOU',
       caCustomerNum: formValue['customerNumber'],
       caPayment: "0",
       caBrokerid: "0",
@@ -199,7 +199,7 @@ export class HouseComponent implements OnInit {
       else {
         //Update functionality
         let housePolicyAddObj: IHousePolicy = {
-          caRequestId: '01UHOU',
+          // caRequestId: '01UHOU',
           caCustomerNum: formValue['customerNumber'],
           caPayment: "0",
           caBrokerid: "0",

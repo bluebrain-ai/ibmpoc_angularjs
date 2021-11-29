@@ -7,7 +7,7 @@
                     <label class="mb-2">Policy Number </label>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" formControlName="policyNumber" class="form-control textbox" maxlength="10" [ngClass]="{ 'is-invalid': submitted && noPolicyNo }" />
+                    <input type="text" formControlName="policyNumber" (input)="requiredFieldKeyUp('PolicyNo')" class="form-control textbox" maxlength="10" [ngClass]="{ 'is-invalid': submitted && noPolicyNo }" />
                     <div *ngIf="submitted && noPolicyNo" class="invalid-feedback">
                         <div *ngIf="noPolicyNo">
                             Policy Number is required
@@ -26,7 +26,7 @@
                     <label class="mb-2">Customer Number</label>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" formControlName="customerNumber" class="form-control textbox" [ngClass]="{ 'is-invalid': submitted && noCustomerNo}" />
+                    <input type="text" formControlName="customerNumber" (input)="requiredFieldKeyUp('CustomerNo')" class="form-control textbox" [ngClass]="{ 'is-invalid': submitted && noCustomerNo}" />
                     <div *ngIf="submitted && noCustomerNo" class="invalid-feedback">
                         <div *ngIf="noCustomerNo">
                             Customer Number is required

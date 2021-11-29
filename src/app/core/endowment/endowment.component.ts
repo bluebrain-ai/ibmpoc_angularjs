@@ -123,7 +123,7 @@ export class EndowmentComponent implements OnInit {
       this.noCustomerNo = false;
       this.noPolicyNo = false;
       // Motor Policy Inquiry
-      this._endowmentService.motorPolicyInquiry(formValue['policyNumber'], formValue['customerNumber']).subscribe((res: any) => {
+      this._endowmentService.endowmentPolicyInquiry(formValue['policyNumber'], formValue['customerNumber']).subscribe((res: any) => {
         this.endowmentForm.patchValue({
           issueDate: res.caEndowment.caIssueDate,
           expiryDate: res.caEndowment.caExpiryDate,
@@ -152,7 +152,7 @@ export class EndowmentComponent implements OnInit {
     this.submitted = true;
     let formValue = this.endowmentForm.value;
     if (this.validation(formValue)) {
-      this._endowmentService.motorPolicyDelete(formValue['policyNumber'], formValue['customerNumber']).subscribe((res: any) => {
+      this._endowmentService.endowmentPolicyDelete(formValue['policyNumber'], formValue['customerNumber']).subscribe((res: any) => {
         //Call alert to show notification
         console.log(res, 'Res for delete Motor')
         this.onReset();
@@ -173,7 +173,7 @@ export class EndowmentComponent implements OnInit {
     this.noCustomerNo = false;
     this.noPolicyNo = false;
     let endowmentPolicyAddObj: IEndowmentPolicy = {
-      caRequestId: '01AEND',
+      // caRequestId: '01AEND',
       caCustomerNum: formValue['customerNumber'],
       caPayment: "0",
       caBrokerid: "0",
@@ -188,7 +188,7 @@ export class EndowmentComponent implements OnInit {
       caEManagedFund: formValue['managedFunds'],
       caEEquities: formValue['equities']
     }
-    this._endowmentService.motorPolicyAdd(endowmentPolicyAddObj).subscribe((res: any) => {
+    this._endowmentService.endowmentPolicyAdd(endowmentPolicyAddObj).subscribe((res: any) => {
       //Call alert to show notification
       console.log(res, 'Res for add claim')
       this.onReset();
@@ -212,7 +212,7 @@ export class EndowmentComponent implements OnInit {
       else {
         //Update functionality
         let endowmentPolicyAddObj: IEndowmentPolicy = {
-          caRequestId: '01UEND',
+          // caRequestId: '01UEND',
           caCustomerNum: formValue['customerNumber'],
           caPayment: "0",
           caBrokerid: "0",
@@ -227,7 +227,7 @@ export class EndowmentComponent implements OnInit {
           caEManagedFund: formValue['managedFunds'],
           caEEquities: formValue['equities']
         }
-        this._endowmentService.motorPolicyUpdate(endowmentPolicyAddObj).subscribe((res: any) => {
+        this._endowmentService.endowmentPolicyUpdate(endowmentPolicyAddObj).subscribe((res: any) => {
           //Call alert to show notification
           console.log(res, 'Res for policy updated')
           this.isPolicyUpdate = false;

@@ -26,6 +26,11 @@ export const environment = {
   houseUpdate: 'http://localhost:8080',
   houseDelete: 'http://localhost:8080',
 
+
+  commercialInquiry: 'http://localhost:8080',
+  commercialAdd: 'http://localhost:9082',
+  commercialDelete: 'http://localhost:8080',
+
 };
 
 /*

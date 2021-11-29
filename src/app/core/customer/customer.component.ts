@@ -27,7 +27,7 @@ export class CustomerComponent implements OnInit, AfterViewInit {
     this.isClaimUpdate = false;
     this.customerForm = this.formBuilder.group({
       customerNumber: [
-        '', Validators.pattern('^[0-9]*$'),
+        ''
       ],
       customerFirstName: ['', Validators.maxLength(10)],
       customerLastName: ['', Validators.maxLength(20)],
@@ -36,7 +36,7 @@ export class CustomerComponent implements OnInit, AfterViewInit {
       ],
       houseName: ['', Validators.maxLength(20)],
       houseNumber: ['', Validators.maxLength(20)],
-      postCode: ['', Validators.pattern('^[0-9]*$')],
+      postCode: [''],
       phoneHome: [
         '',
 

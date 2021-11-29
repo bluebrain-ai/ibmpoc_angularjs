@@ -14,7 +14,7 @@ export interface IEndowmentInquiryResponse {
 
 
 export interface IEndowmentPolicy {
-    caRequestId: string;
+    // caRequestId: string;
     caCustomerNum: string;
     caPayment: string;
     caBrokerid: string;

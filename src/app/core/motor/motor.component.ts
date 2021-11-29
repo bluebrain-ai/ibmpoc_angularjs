@@ -26,13 +26,10 @@ export class MotorComponent implements OnInit {
   ngOnInit(): void {
     this.motorForm = this.formBuilder.group({
       policyNumber: [
-        '',
-        Validators.pattern('^[0-9]*$'),
-        ,
+        ''
       ],
       customerNumber: [
-        '',
-        Validators.pattern('^[0-9]*$'),
+        ''
       ],
       issueDate: [
         ''
@@ -44,16 +41,10 @@ export class MotorComponent implements OnInit {
       carModel: ['', Validators.maxLength(20)],
 
       carValue: [
-        '',
-
-        Validators.pattern('^[0-9]*$'),
-        ,
+        ''
       ],
       registration: [
-        '',
-
-        Validators.pattern('^[0-9]*$'),
-        ,
+        ''
       ],
       carColor: ['', Validators.maxLength(8)],
       cc: ['', Validators.maxLength(8)],
@@ -61,14 +52,10 @@ export class MotorComponent implements OnInit {
         ''
       ],
       noOfAccident: [
-        '',
-        Validators.pattern('^[0-9]*$'),
-        ,
+        ''
       ],
       policyPremium: [
-        '',
-        Validators.pattern('^[0-9]*$'),
-        ,
+        ''
       ],
     });
   }
@@ -135,7 +122,7 @@ export class MotorComponent implements OnInit {
     this.noCustomerNo = false;
     this.noPolicyNo = false;
     let motorPolicyAddObj: IMotorPolicy = {
-      caRequestId: '01AMOT',
+      // caRequestId: '01AMOT',
       caCustomerNum: formValue['customerNumber'],
       caPayment: "0",
       caBrokerid: "0",
@@ -173,7 +160,7 @@ export class MotorComponent implements OnInit {
       else {
         //Update functionality
         let motorPolicyAddObj: IMotorPolicy = {
-          caRequestId: '01UMOT',
+          // caRequestId: '01UMOT',
           caCustomerNum: formValue['customerNumber'],
           caPayment: "0",
           caBrokerid: "0",

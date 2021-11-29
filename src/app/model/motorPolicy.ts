@@ -16,7 +16,7 @@ export interface IMotorInquiryResponse {
 
 
 export interface IMotorPolicy {
-    caRequestId: string;
+    // caRequestId: string;
     caCustomerNum: string;
     caPayment: string;
     caBrokerid: string;

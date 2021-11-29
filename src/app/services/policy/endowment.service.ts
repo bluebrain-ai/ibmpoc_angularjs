@@ -4,7 +4,6 @@ import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { EndPoints } from 'src/app/constants/endPoints';
-import { IEndowmentInquiryResponse } from 'src/app/model/endowmentPolicy';
 import { CommonService } from '../common.service';
 
 @Injectable({
@@ -20,7 +19,7 @@ export class EndowmentService {
     })
   }
 
-  motorPolicyInquiry(policyNo: string, customerNo: string): Observable<any> {
+  endowmentPolicyInquiry(policyNo: string, customerNo: string): Observable<any> {
     let endowmentPolicyobj = {
       caRequestId: '01IEND',
       caCustomerNum: customerNo,
@@ -33,7 +32,7 @@ export class EndowmentService {
       )
   }
 
-  motorPolicyDelete(policyNo: string, customerNo: string): Observable<any> {
+  endowmentPolicyDelete(policyNo: string, customerNo: string): Observable<any> {
     let endowmentPolicyobj = {
       caRequestId: '01DEND',
       caCustomerNum: customerNo,
@@ -46,7 +45,7 @@ export class EndowmentService {
       )
   }
 
-  motorPolicyAdd(endowmentPolicyDetails): Observable<any> {
+  endowmentPolicyAdd(endowmentPolicyDetails): Observable<any> {
     let endowmentPolicyobj = {
       caRequestId: '01AEND',
       caCustomerNum: endowmentPolicyDetails.caCustomerNum,
@@ -59,7 +58,7 @@ export class EndowmentService {
       )
   }
 
-  motorPolicyUpdate(endowmentPolicyDetails): Observable<any> {
+  endowmentPolicyUpdate(endowmentPolicyDetails): Observable<any> {
     let endowmentPolicyobj = {
       caRequestId: '01UEND',
       caCustomerNum: endowmentPolicyDetails.caCustomerNum,

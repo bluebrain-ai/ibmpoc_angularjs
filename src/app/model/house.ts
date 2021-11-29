@@ -1,5 +1,5 @@
 export interface IHousePolicy {
-    caRequestId: string;
+    // caRequestId: string;
     caCustomerNum: string;
     caPayment: string;
     caBrokerid: string;

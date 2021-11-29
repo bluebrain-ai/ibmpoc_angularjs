@@ -10,6 +10,8 @@ export class CommonService {
 
   constructor(private alertService: AlertService) { }
   processError = (err) => {
+
+    console.log('error----', err)
     let message = '';
     if (err.error instanceof ErrorEvent) {
       message = err.error.message;
@@ -31,8 +33,16 @@ export class CommonService {
     if (dateTime != null && dateTime != '') {
       var date = new Date(dateTime);
       var year = date.getFullYear();
-      var month = Number(date.getMonth()) + Number(1);
-      var day = date.getDate()
+      var month = (Number(date.getMonth()) + Number(1)).toString();
+      let checkMonthLength = month.toString().length;
+      if (checkMonthLength == 1) {
+        month = ('0' + month).toString()
+      }
+      var day = date.getDate().toString();
+      let checkDateLength = day.length;
+      if (checkDateLength == 1) {
+        day = ('0' + day).toString()
+      }
       return year + '-' + month + '-' + day;
     }
     else {

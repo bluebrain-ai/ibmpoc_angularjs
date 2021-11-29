@@ -18,4 +18,10 @@ export class EndPoints {
     public static HOUSE_UPDATE = '/houseupdate';
     public static HOUSE_DELETE = '/housedelete';
 
+
+    public static COMMERCIAL_ENQUIRY = '/comminquiry';
+    public static COMMERCIAL_ADD = '/commadd';
+    public static COMMERCIAL_DELETE = '/commdelete';
+
+
 }

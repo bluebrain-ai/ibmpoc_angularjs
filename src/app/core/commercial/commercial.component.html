@@ -1,20 +1,20 @@
 <div class="container">
     <h3 class="text-center">General Insurance Commercial Policy Menu</h3>
-    <form [formGroup]="commercialForm" (ngSubmit)="onSubmit()" class="mt-5">
+    <form [formGroup]="commercialForm" class="mt-5">
         <div class="form-group mb-3">
             <div class="row justify-content-md-center">
                 <div class="col-md-3">
                     <label class="mb-2">Policy Number </label>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" formControlName="policyNumber" class="form-control textbox" maxlength="10" [ngClass]="{ 'is-invalid': submitted && f.policyNumber.errors }" />
-                    <div *ngIf="submitted && f.policyNumber.errors" class="invalid-feedback">
-                        <div *ngIf="f.policyNumber.errors.required">
+                    <input type="text" formControlName="policyNumber" (input)="requiredFieldKeyUp('PolicyNo')" class="form-control textbox" maxlength="10" [ngClass]="{ 'is-invalid': submitted && noPolicyNo }" />
+                    <div *ngIf="submitted && noPolicyNo" class="invalid-feedback">
+                        <div *ngIf="noPolicyNo">
                             Policy Number is required
                         </div>
-                        <div *ngIf="f.policyNumber.errors.pattern">
+                        <!-- <div *ngIf="f.policyNumber.errors.pattern">
                             Invalid Policy Number
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -26,14 +26,14 @@
                     <label class="mb-2">Customer Number</label>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" formControlName="customerNumber" class="form-control textbox" [ngClass]="{ 'is-invalid': submitted && f.customerNumber.errors }" />
-                    <div *ngIf="submitted && f.customerNumber.errors" class="invalid-feedback">
-                        <div *ngIf="f.customerNumber.errors.required">
+                    <input type="text" formControlName="customerNumber" (input)="requiredFieldKeyUp('CustomerNo')" class="form-control textbox" [ngClass]="{ 'is-invalid': submitted && noCustomerNo }" />
+                    <div *ngIf="submitted && noCustomerNo" class="invalid-feedback">
+                        <div *ngIf="noCustomerNo">
                             Customer Number is required
                         </div>
-                        <div *ngIf="f.customerNumber.errors.pattern">
+                        <!-- <div *ngIf="f.customerNumber.errors.pattern">
                             Invalid Customer Number
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -119,14 +119,14 @@
                     <label class="mb-2">Postal Code </label>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" formControlName="postalCode" class="form-control textbox" maxlength="6" [ngClass]="{ 'is-invalid': submitted && f.postalCode.errors }" />
-                    <div *ngIf="submitted && f.postalCode.errors" class="invalid-feedback">
-                        <div *ngIf="f.postalCode.errors.required">
+                    <input type="text" formControlName="postalCode" (input)="requiredFieldKeyUp('PostalCode')" class="form-control textbox" maxlength="6" [ngClass]="{ 'is-invalid': submitted && noPostalCode }" />
+                    <div *ngIf="submitted && noPostalCode" class="invalid-feedback">
+                        <div *ngIf="noPostalCode">
                             Postal Code is required
                         </div>
-                        <div *ngIf="f.postalCode.errors.pattern">
-                            Invalid Postal Code Value
-                        </div>
+                        <!-- <div *ngIf="f.customerNumber.errors.pattern">
+                            Invalid Customer Number
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -297,10 +297,9 @@
         </div>
 
         <div class="form-group d-flex justify-content-around mt-5">
-            <button type="submit" class="btn btn-primary">Policy Inquiry</button>
-            <button type="submit" class="btn btn-primary">Policy Add</button>
-            <button type="submit" class="btn btn-primary">Policy Delete</button>
-
+            <button type="submit" class="btn btn-primary" (click)="policyInquiry()">Policy Inquiry</button>
+            <button type="submit" class="btn btn-primary" (click)="policyAdd()">Policy Add</button>
+            <button type="submit" class="btn btn-primary" (click)="policyDelete()">Policy Delete</button>
             <button type="button" (click)="onReset()" class="btn btn-warning float-right">
         Reset
       </button>
