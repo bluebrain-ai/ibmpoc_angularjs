@@ -5,10 +5,9 @@
 export const environment = {
   production: false,
   env: 'dev',
-  customerPolicy: 'https://localhost:8080',
-  customerPolicyInquiry: 'http://localhost:8080',
-  customerPolicyAdd: 'http://localhost:9082',
-  customerPolicyUpdate: 'http://localhost:8080',
+  customerPolicyInquiry: 'http://localhost:9981',
+  customerPolicyAdd: 'http://localhost:9982',
+  customerPolicyUpdate: 'http://localhost:9983',
 
   motorInquiry: 'http://localhost:8080',
   motorAdd: 'http://localhost:9082',
