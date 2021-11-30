@@ -51,7 +51,13 @@ export class CommonService {
 
 
   showRequestCode(requestCode) {
-    this.alertService.error(`Error Code : ${requestCode} Message : Please try again..`);
+    let reqCode = Number(requestCode);
+    if (reqCode > 0 && reqCode <= 10) {
+      this.alertService.error(`No Record Found`);
+    }
+    else {
+      this.alertService.error(`Error Code : ${requestCode} Message : Please try again..`);
+    }
     this.scrollUpPage();
 
   }

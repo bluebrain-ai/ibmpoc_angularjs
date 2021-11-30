@@ -14,14 +14,19 @@ export class AlertComponent implements OnInit {
     console.log("Calling init function");
     this.alertService.getMessage().subscribe(message => {
       this.message = message;
-      this.hideAlert()
+      this.hideAlert();
     });
   }
   closeAlert() {
     this.message = ''
   }
-  hideAlert(): void {
-    // something
-    setTimeout(() => this.message = '', 10000); // 3000 is millisecond
+  async hideAlert() {
+    await this.timeout(30000);
+    this.message = ''
+
+  }
+
+  timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 }
