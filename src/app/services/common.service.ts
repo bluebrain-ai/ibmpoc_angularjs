@@ -62,5 +62,15 @@ export class CommonService {
 
   }
 
+  convertDatetime(dateValue) {
+    var date_regex = /\d{4}-\d{2}-\d{2}/;
+    if (date_regex.test(dateValue)) {
+      return new Date(dateValue.split('-'));
+    }
+    else {
+      return ''
+    }
+  }
+
 
 }

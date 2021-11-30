@@ -121,8 +121,8 @@ export class HouseComponent implements OnInit {
           return;
         }
         this.houseForm.patchValue({
-          issueDate: res.caPolicyRequest.caHouse.caIssueDate,
-          expiryDate: res.caPolicyRequest.caHouse.caExpiryDate,
+          issueDate: this.commonService.convertDatetime(res.caPolicyRequest.caHouse.caIssueDate),
+          expiryDate: this.commonService.convertDatetime(res.caPolicyRequest.caHouse.caExpiryDate),
           propertyType: res.caPolicyRequest.caHouse.caHPropertyType,
           bedRooms: res.caPolicyRequest.caHouse.caHBedrooms,
           HouseValue: res.caPolicyRequest.caHouse.caHValue,

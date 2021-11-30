@@ -125,7 +125,6 @@ export class CustomerComponent implements OnInit, AfterViewInit {
       this.noCustomerNo = true;
       return;
     }
-
     this.noCustomerNo = false;
     this._customerervice.customerInquiry(formValue['customerNumber']).subscribe((res: any) => {
 
@@ -138,7 +137,7 @@ export class CustomerComponent implements OnInit, AfterViewInit {
         this.customerForm.patchValue({
           customerFirstName: res.caCustomerRequest.caFirstName,
           customerLastName: res.caCustomerRequest.caLastName,
-          dob: res.caCustomerRequest.caDob,
+          dob: this.commonService.convertDatetime(res.caCustomerRequest.caDob),
           houseName: res.caCustomerRequest.caHouseName,
           houseNumber: res.caCustomerRequest.caHouseNum,
           postCode: res.caCustomerRequest.caPostcode,

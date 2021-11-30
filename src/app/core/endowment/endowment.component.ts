@@ -131,7 +131,7 @@ export class EndowmentComponent implements OnInit {
 
         this.endowmentForm.patchValue({
           issueDate: res.caPolicyRequest.caEndowment.caIssueDate,
-          expiryDate: res.caPolicyRequest.caEndowment.caExpiryDate,
+          expiryDate: this.commonService.convertDatetime(res.caPolicyRequest.caEndowment.caExpiryDate),
           fundName: res.caPolicyRequest.caEndowment.caEFundName,
           term: res.caPolicyRequest.caEndowment.caETerm,
           sumAssured: res.caPolicyRequest.caEndowment.caESumAssured,

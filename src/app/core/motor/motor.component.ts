@@ -78,15 +78,15 @@ export class MotorComponent implements OnInit {
           return;
         }
         this.motorForm.patchValue({
-          issueDate: res.caPolicyRequest.caMotor.caIssueDate,
-          expiryDate: res.caPolicyRequest.caMotor.caExpiryDate,
+          issueDate: this.commonService.convertDatetime(res.caPolicyRequest.caMotor.caIssueDate),
+          expiryDate: this.commonService.convertDatetime(res.caPolicyRequest.caMotor.caExpiryDate),
           carMake: res.caPolicyRequest.caMotor.caMMake,
           carModel: res.caPolicyRequest.caMotor.caMModel,
           carValue: res.caPolicyRequest.caMotor.caMValue,
           registration: res.caPolicyRequest.caMotor.caMRegnumber,
           carColor: res.caPolicyRequest.caMotor.caMColour,
           cc: res.caPolicyRequest.caMotor.caMCc,
-          manufactureDate: res.caPolicyRequest.caMotor.caMManufactured,
+          manufactureDate: this.commonService.convertDatetime(res.caPolicyRequest.caMotor.caMManufactured),
           policyPremium: res.caPolicyRequest.caMotor.caMPremium,
           noOfAccident: res.caPolicyRequest.caMotor.caMAccidents
         });
