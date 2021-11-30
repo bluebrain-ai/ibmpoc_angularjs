@@ -46,7 +46,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="input-group">
-                        <input matInput class="form-control textbox" formControlName="issueDate" [matDatepicker]="issueDate" [ngClass]="{ 'is-invalid': f.issueDate.errors }">
+                        <input matInput class="form-control textbox" placeholder="YYYY-MM-DD" formControlName="issueDate" [matDatepicker]="issueDate" [ngClass]="{ 'is-invalid': f.issueDate.errors }">
                         <div class="input-group-append">
                             <div class="input-group-text p-0">
                                 <mat-datepicker-toggle matSuffix [for]="issueDate"></mat-datepicker-toggle>
@@ -76,7 +76,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="input-group">
-                        <input matInput class="form-control textbox" formControlName="expiryDate" [matDatepicker]="expiryDate" [ngClass]="{ 'is-invalid': f.expiryDate.errors }">
+                        <input matInput class="form-control textbox" placeholder="YYYY-MM-DD" formControlName="expiryDate" [matDatepicker]="expiryDate" [ngClass]="{ 'is-invalid': f.expiryDate.errors }">
                         <div class="input-group-append">
                             <div class="input-group-text p-0">
                                 <mat-datepicker-toggle matSuffix [for]="expiryDate"></mat-datepicker-toggle>
