@@ -310,7 +310,6 @@ export class CommercialComponent implements OnInit {
     }
     else {
       this.noCustomerNo = false;
-
     }
     if (formValue['policyNumber'] == null || formValue['policyNumber'] == "") {
       this.noPolicyNo = true;

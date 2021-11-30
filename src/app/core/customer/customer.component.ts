@@ -59,12 +59,58 @@ export class CustomerComponent implements OnInit, AfterViewInit {
   get f(): { [key: string]: AbstractControl } {
     return this.customerForm.controls;
   }
+
+  setValidator() {
+    this.submitted = true;
+    this.customerForm.get('customerFirstName').setValidators([
+      Validators.required,
+    ]);
+    this.customerForm.get('customerLastName').setValidators([
+      Validators.required,
+    ]);
+    this.customerForm.get('dob').setValidators([
+      Validators.required,
+    ]);
+    this.customerForm.get('houseName').setValidators([
+      Validators.required,
+    ]);
+    this.customerForm.get('houseNumber').setValidators([
+      Validators.required,
+    ]);
+    this.customerForm.get('postCode').setValidators([
+      Validators.required,
+    ]);
+    this.updateValidity();
+
+  }
+  removeValidator() {
+    this.submitted = true;
+    this.customerForm.get('customerFirstName').setValidators([]);
+    this.customerForm.get('customerLastName').setValidators([]);
+    this.customerForm.get('dob').setValidators([]);
+    this.customerForm.get('houseName').setValidators([]);
+    this.customerForm.get('houseNumber').setValidators([]);
+    this.customerForm.get('postCode').setValidators([]);
+    this.updateValidity();
+
+
+  }
+
+  updateValidity() {
+    this.customerForm.controls['customerFirstName'].updateValueAndValidity();
+    this.customerForm.controls['customerLastName'].updateValueAndValidity();
+    this.customerForm.controls['dob'].updateValueAndValidity();
+    this.customerForm.controls['houseName'].updateValueAndValidity();
+    this.customerForm.controls['houseNumber'].updateValueAndValidity();
+    this.customerForm.controls['postCode'].updateValueAndValidity();
+  }
   onReset(): void {
     this.submitted = false;
     this.noCustomerNo = false;
     this.isCustomerUpdate = false;
     this.customerForm.reset();
     this.commonService.scrollUpPage();
+    this.removeValidator();
   }
   ngAfterViewInit() {
     //Copy in all the js code from the script.js. Typescript will complain but it works just fine
@@ -72,11 +118,14 @@ export class CustomerComponent implements OnInit, AfterViewInit {
 
   claimInquiry(inquiryType: string = '') {
     this.submitted = true;
+    this.removeValidator();
+
     let formValue = this.customerForm.value;
     if (formValue['customerNumber'] == null || formValue['customerNumber'] == "") {
       this.noCustomerNo = true;
       return;
     }
+
     this.noCustomerNo = false;
     this._customerervice.customerInquiry(formValue['customerNumber']).subscribe((res: any) => {
 
@@ -114,6 +163,11 @@ export class CustomerComponent implements OnInit, AfterViewInit {
   claimAdd() {
     this.submitted = true;
     let formValue = this.customerForm.value;
+    this.setValidator();
+    if (this.customerForm.invalid) {
+      return;
+    }
+    this.removeValidator();
     // if (formValue['customerNumber'] == null || formValue['customerNumber'] == "") {
     //   this.noCustomerNo = true;
     //   return;
@@ -150,11 +204,13 @@ export class CustomerComponent implements OnInit, AfterViewInit {
 
   claimUpdate() {
     this.submitted = true;
+    this.removeValidator();
     let formValue = this.customerForm.value;
     if (formValue['customerNumber'] == null || formValue['customerNumber'] == "") {
       this.noCustomerNo = true;
       return;
     }
+
     this.noCustomerNo = false;
     // for update first Call Enquiry and populate the form and once the data changes then recall the Update 
     if (this.isCustomerUpdate == false) {

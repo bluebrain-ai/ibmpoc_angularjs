@@ -9,22 +9,22 @@ export const environment = {
   customerPolicyAdd: 'http://localhost:9982',
   customerPolicyUpdate: 'http://localhost:9983',
 
-  motorInquiry: 'http://localhost:8080',
+  motorInquiry: 'http://localhost:9984',
   motorAdd: 'http://localhost:7001',
   motorUpdate: 'http://localhost:9987',
   motorDelete: 'http://localhost:9986',
 
-  endowmentInquiry: 'http://localhost:8080',
+  endowmentInquiry: 'http://localhost:9984',
   endowmentAdd: 'http://localhost:7001',
   endowmentUpdate: 'http://localhost:9987',
   endowmentDelete: 'http://localhost:9986',
 
-  houseInquiry: 'http://localhost:8080',
+  houseInquiry: 'http://localhost:9984',
   houseAdd: 'http://localhost:7001',
   houseUpdate: 'http://localhost:9987',
   houseDelete: 'http://localhost:9986',
 
-  commercialInquiry: 'http://localhost:8080',
+  commercialInquiry: 'http://localhost:9984',
   commercialAdd: 'http://localhost:7001',
   commercialDelete: 'http://localhost:9986',
 

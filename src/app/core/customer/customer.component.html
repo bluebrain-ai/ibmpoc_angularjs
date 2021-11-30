@@ -59,22 +59,29 @@
                 </div>
                 <div class="col-md-4">
                     <div class="input-group">
-                        <input matInput class="form-control textbox" formControlName="dob" [matDatepicker]="datepicker" [ngClass]="{ 'is-invalid': f.dob.errors }">
+                        <input matInput class="form-control textbox" placeholder="YYYY-MM-DD" formControlName="dob" [matDatepicker]="datepicker" [ngClass]="{ 'is-invalid': submitted &&  f.dob.errors }">
                         <div class="input-group-append">
                             <div class="input-group-text p-0">
                                 <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
                                 <mat-datepicker #datepicker></mat-datepicker>
                             </div>
                         </div>
+                        <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
+                            <div *ngIf="f.dob.errors.required">Date of Birth is required</div>
+                            <!-- <div *ngIf="f.dob.errors">
+                                Date of Birth must be a valid date in the format YYYY-MM-DD
+                            </div> -->
+                        </div>
                     </div>
+
                     <!-- <input type="date" formControlName="dob" class="form-control textbox" data-placeholder="YYYY/MM/DD" [ngClass]="{ 'is-invalid': submitted && f.dob.errors }" /> -->
 
-                    <div *ngIf="f.dob.errors" class="invalid-feedback">
-                        <!-- <div *ngIf="f.dob.errors.required">Date of Birth is required</div> -->
+                    <!-- <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
+                        <div *ngIf="f.dob.errors.required">Date of Birth is required</div>
                         <div *ngIf="f.dob.errors">
                             Date of Birth must be a valid date in the format YYYY-MM-DD
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
