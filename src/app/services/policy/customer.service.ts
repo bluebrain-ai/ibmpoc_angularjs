@@ -9,7 +9,7 @@ import { CommonService } from '../common.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ClaimService {
+export class CustomerService {
 
   constructor(private httpClient: HttpClient, private commonService: CommonService) {
   }
@@ -18,7 +18,7 @@ export class ClaimService {
       'Content-Type': 'application/json'
     })
   }
-  claimInquiry(customerNo): Observable<any> {
+  customerInquiry(customerNo): Observable<any> {
     let customerObj = {
       caRequestId: '01ICUS',
       caCustomerNum: customerNo
@@ -31,7 +31,7 @@ export class ClaimService {
       )
   }
 
-  claimAdd(customerDetails): Observable<any> {
+  customerAdd(customerDetails): Observable<any> {
     let customerObj = {
       caRequestId: '01ACUS',
       caCustomerRequest: customerDetails,
@@ -45,7 +45,7 @@ export class ClaimService {
       )
   }
 
-  claimUpdate(customerDetails): Observable<any> {
+  customerUpdate(customerDetails): Observable<any> {
 
     let customerObj = {
       caRequestId: '01UCUS',

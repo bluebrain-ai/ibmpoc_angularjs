@@ -10,15 +10,14 @@ export class CommonService {
 
   constructor(private alertService: AlertService) { }
   processError = (err) => {
-
     console.log('error----', err)
     let message = '';
     if (err.error instanceof ErrorEvent) {
       message = err.error.message;
     } else {
       // message = `Error Code: ${err.status}\nMessage: ${err.message}`;
-      message = `Error Code: ${err.status}\nMessage: ${err.error}`;
-
+      // message = `Error Code: ${err.status}\nMessage: ${err.error}`;
+      message = `Error Code: 500 \n Message: Interal Server Error`;
     }
     this.alertService.error(message);
     console.log(message);
@@ -49,4 +48,13 @@ export class CommonService {
       return null;
     }
   }
+
+
+  showRequestCode(requestCode) {
+    this.alertService.error(`Error Code : ${requestCode} Message : Please try again..`);
+    this.scrollUpPage();
+
+  }
+
+
 }

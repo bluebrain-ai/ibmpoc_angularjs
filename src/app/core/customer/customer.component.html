@@ -178,11 +178,11 @@
         <div class="form-group d-flex justify-content-around mt-5">
             <button type="submit" class="btn btn-primary" (click)="claimInquiry()">Customer Inquiry</button>
             <button type="submit" class="btn btn-primary" (click)="claimAdd()">Customer Add</button>
-            <div *ngIf="isClaimUpdate">
-                <button type="submit" [disabled]="!isClaimUpdate" class="btn btn-primary" (click)="claimUpdate()">Confirm Update</button>
+            <div *ngIf="isCustomerUpdate">
+                <button type="submit" [disabled]="!isCustomerUpdate" class="btn btn-primary" (click)="claimUpdate()">Confirm Update</button>
             </div>
-            <div *ngIf="!isClaimUpdate">
-                <button type="submit" [disabled]="isClaimUpdate" class="btn btn-primary" (click)="claimUpdate()">Customer Update</button>
+            <div *ngIf="!isCustomerUpdate">
+                <button type="submit" [disabled]="isCustomerUpdate" class="btn btn-primary" (click)="claimUpdate()">Customer Update</button>
             </div>
             <button type="button" (click)="onReset()" class="btn btn-warning float-right">
         Reset

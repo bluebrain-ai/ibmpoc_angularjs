@@ -152,25 +152,30 @@ export class CommercialComponent implements OnInit {
       // Commercial Policy Inquiry
       let commercialInquiryObj = this.prepareInquiryObj(formValue);
       this._commercialService.commercialPolicyInquiry(commercialInquiryObj).subscribe((res: any) => {
+        if (res.caReturnCode !== 0) {
+          this.commonService.showRequestCode(res.caReturnCode);
+          return;
+        }
+
         this.commercialForm.patchValue({
-          customerNumber: res.caCommercial.caCustomerNum,
-          startDate: res.caCommercial.caIssueDate,
-          expiryDate: res.caCommercial.caExpiryDate,
-          address: res.caCommercial.caBAddress,
-          postalCode: res.caCommercial.caBPostcode,
-          latitude: res.caCommercial.caBLatitude,
-          longitude: res.caCommercial.caBLongitude,
-          customerName: res.caCommercial.caBCustomer,
-          firePeril: res.caCommercial.caBFireperil,
-          firePrem: res.caCommercial.caBFirepremium,
-          crimePeril: res.caCommercial.caBCrimeperil,
-          crimePrem: res.caCommercial.caBCrimepremium,
-          floodPeril: res.caCommercial.caBFloodperil,
-          floodPrem: res.caCommercial.caBFloodpremium,
-          weatherPeril: res.caCommercial.caBWeatherperil,
-          weatherPrem: res.caCommercial.caBWeatherpremium,
-          status: res.caCommercial.caBStatus,
-          rejectReason: res.caCommercial.caBRejectreason
+          customerNumber: res.caPolicyRequest.caCommercial.caCustomerNum,
+          startDate: res.caPolicyRequest.caCommercial.caIssueDate,
+          expiryDate: res.caPolicyRequest.caCommercial.caExpiryDate,
+          address: res.caPolicyRequest.caCommercial.caBAddress,
+          postalCode: res.caPolicyRequest.caCommercial.caBPostcode,
+          latitude: res.caPolicyRequest.caCommercial.caBLatitude,
+          longitude: res.caPolicyRequest.caCommercial.caBLongitude,
+          customerName: res.caPolicyRequest.caCommercial.caBCustomer,
+          firePeril: res.caPolicyRequest.caCommercial.caBFireperil,
+          firePrem: res.caPolicyRequest.caCommercial.caBFirepremium,
+          crimePeril: res.caPolicyRequest.caCommercial.caBCrimeperil,
+          crimePrem: res.caPolicyRequest.caCommercial.caBCrimepremium,
+          floodPeril: res.caPolicyRequest.caCommercial.caBFloodperil,
+          floodPrem: res.caPolicyRequest.caCommercial.caBFloodpremium,
+          weatherPeril: res.caPolicyRequest.caCommercial.caBWeatherperil,
+          weatherPrem: res.caPolicyRequest.caCommercial.caBWeatherpremium,
+          status: res.caPolicyRequest.caCommercial.caBStatus,
+          rejectReason: res.caPolicyRequest.caCommercial.caBRejectreason
         });
       })
       this.commonService.scrollUpPage();
@@ -188,9 +193,13 @@ export class CommercialComponent implements OnInit {
     if (this.validationCustPolicy(formValue)) {
       this._commercialService.commercialPolicyDelete(formValue['policyNumber'], formValue['customerNumber']).subscribe((res: any) => {
         //Call alert to show notification
+        if (res.caReturnCode !== 0) {
+          this.commonService.showRequestCode(res.caReturnCode);
+          return;
+        }
         console.log(res, 'Res for delete Motor')
         this.onReset();
-        this.alertService.success("Commercial Policy Deleted", false);
+        this.alertService.success("Commercial Policy " + res.caPolicyRequest.caPolicyNum + " Deleted", false);
       })
       this.commonService.scrollUpPage();
 
@@ -232,9 +241,17 @@ export class CommercialComponent implements OnInit {
     }
     this._commercialService.commercialPolicyAdd(commercialPolicyAddObj).subscribe((res: any) => {
       //Call alert to show notification
+      if (res.caReturnCode !== 0) {
+        this.commonService.showRequestCode(res.caReturnCode);
+        return;
+      }
       console.log(res, 'Res for add claim')
       this.onReset();
-      this.alertService.success("New Commercial Policy Inserted", false);
+      // Add created Policy no to textbox 
+      this.commercialForm.patchValue({
+        policyNumber: res.caPolicyRequest.caPolicyNum
+      });
+      this.alertService.success("New Commercial Policy " + res.caPolicyRequest.caPolicyNum + " Inserted", false);
     });
     this.commonService.scrollUpPage();
 
@@ -243,21 +260,21 @@ export class CommercialComponent implements OnInit {
 
   prepareInquiryObj(formValue) {
     let commercialInquiryObj: any
-
-    console.log('afd', formValue)
-    //01ICOM
-
     if ((formValue['customerNumber'] != null && formValue['customerNumber'] != "") && (formValue['policyNumber'] != null && formValue['policyNumber'] != "")) {
       commercialInquiryObj = {
         caRequestId: '01ICOM',
         caCustomerNum: formValue['customerNumber'],
-        caPolicyNum: formValue['policyNumber']
+        caPolicyRequest: {
+          caPolicyNum: formValue['policyNumber']
+        }
       }
     }
     else if (formValue['policyNumber'] != null && formValue['policyNumber'] != "") {
       commercialInquiryObj = {
         caRequestId: '02ICOM',
-        caPolicyNum: formValue['policyNumber']
+        caPolicyRequest: {
+          caPolicyNum: formValue['policyNumber']
+        }
       }
     }
     else if (formValue['customerNumber'] != null && formValue['customerNumber'] != "") {
@@ -269,7 +286,7 @@ export class CommercialComponent implements OnInit {
     else if (formValue['postalCode'] != null && formValue['postalCode'] != "") {
       commercialInquiryObj = {
         caRequestId: '05ICOM',
-        caBPostCode: formValue['postalCode']
+        caPolicyRequest: { caCommercial: { caBPostCode: formValue['postalCode'] } }
       }
     }
     else {

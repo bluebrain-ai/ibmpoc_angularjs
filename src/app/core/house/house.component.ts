@@ -115,15 +115,20 @@ export class HouseComponent implements OnInit {
       this.noPolicyNo = false;
       // Motor Policy Inquiry
       this._houseService.housePolicyInquiry(formValue['policyNumber'], formValue['customerNumber']).subscribe((res: any) => {
+
+        if (res.caReturnCode !== 0) {
+          this.commonService.showRequestCode(res.caReturnCode);
+          return;
+        }
         this.houseForm.patchValue({
-          issueDate: res.caHouse.caIssueDate,
-          expiryDate: res.caHouse.caExpiryDate,
-          propertyType: res.caHouse.caHPropertyType,
-          bedRooms: res.caHouse.caHBedrooms,
-          HouseValue: res.caHouse.caHValue,
-          houseName: res.caHouse.caHHouseName,
-          houseNumber: res.caHouse.caHHouseNumber,
-          postCode: res.caHouse.caHPostcode
+          issueDate: res.caPolicyRequest.caHouse.caIssueDate,
+          expiryDate: res.caPolicyRequest.caHouse.caExpiryDate,
+          propertyType: res.caPolicyRequest.caHouse.caHPropertyType,
+          bedRooms: res.caPolicyRequest.caHouse.caHBedrooms,
+          HouseValue: res.caPolicyRequest.caHouse.caHValue,
+          houseName: res.caPolicyRequest.caHouse.caHHouseName,
+          houseNumber: res.caPolicyRequest.caHouse.caHHouseNumber,
+          postCode: res.caPolicyRequest.caHouse.caHPostcode
         });
         if (inquiryType == "updateEnquiry") {
           this.isPolicyUpdate = true;
@@ -144,8 +149,12 @@ export class HouseComponent implements OnInit {
     if (this.validation(formValue)) {
       this._houseService.housePolicyDelete(formValue['policyNumber'], formValue['customerNumber']).subscribe((res: any) => {
         //Call alert to show notification
+        if (res.caReturnCode !== 0) {
+          this.commonService.showRequestCode(res.caReturnCode);
+          return;
+        }
         this.onReset();
-        this.alertService.success("House Policy Deleted", false);
+        this.alertService.success("House Policy " + res.caPolicyRequest.caPolicyNum + " Deleted", false);
       })
       this.commonService.scrollUpPage();
 
@@ -178,8 +187,16 @@ export class HouseComponent implements OnInit {
     }
     this._houseService.housePolicyAdd(housePolicyAddObj).subscribe((res: any) => {
       //Call alert to show notification
+      if (res.caReturnCode !== 0) {
+        this.commonService.showRequestCode(res.caReturnCode);
+        return;
+      }
       this.onReset();
-      this.alertService.success("New Life Policy Inserted", false);
+      // Add created Policy no to textbox 
+      this.houseForm.patchValue({
+        policyNumber: res.caPolicyRequest.caPolicyNum
+      });
+      this.alertService.success("New House Policy " + res.caPolicyRequest.caPolicyNum + " Inserted", false);
     });
     this.commonService.scrollUpPage();
 
@@ -213,11 +230,15 @@ export class HouseComponent implements OnInit {
           caHHouseNumber: formValue['houseNumber'],
           caHPostcode: formValue['postCode']
         }
-        this._houseService.housePolicyUpdate(housePolicyAddObj).subscribe((res: any) => {
+        this._houseService.housePolicyUpdate(housePolicyAddObj, formValue['policyNumber']).subscribe((res: any) => {
           //Call alert to show notification
+          if (res.caReturnCode !== 0) {
+            this.commonService.showRequestCode(res.caReturnCode);
+            return;
+          }
           this.isPolicyUpdate = false;
           this.onReset();
-          this.alertService.success("House Policy Updated", false);
+          this.alertService.success("House Policy " + res.caPolicyRequest.caPolicyNum + " Updated", false);
 
         })
         this.commonService.scrollUpPage();

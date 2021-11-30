@@ -23,7 +23,7 @@ export class MotorService {
     let motoyPolicyObj = {
       caRequestId: '01IMOT',
       caCustomerNum: customerNo,
-      caPolicyNum: policyNo
+      caPolicyRequest: { caPolicyNum: policyNo }
     }
     return this.httpClient.post<any>(environment.motorInquiry + EndPoints.MOTOR_ENQUIRY, JSON.stringify(motoyPolicyObj), this.httpHeader)
       .pipe(
@@ -36,7 +36,7 @@ export class MotorService {
     let motoyPolicyObj = {
       caRequestId: '01DMOT',
       caCustomerNum: customerNo,
-      caPolicyNum: policyNo
+      caPolicyRequest: { caPolicyNum: policyNo }
     }
     return this.httpClient.post<any>(environment.motorDelete + EndPoints.MOTOR_DELETE, JSON.stringify(motoyPolicyObj), this.httpHeader)
       .pipe(
@@ -50,7 +50,7 @@ export class MotorService {
     let motoyPolicyObj = {
       caRequestId: '01AMOT',
       caCustomerNum: motorPolicyDetails.caCustomerNum,
-      caMotor: motorPolicyDetails
+      caPolicyRequest: { caMotor: motorPolicyDetails }
     }
     return this.httpClient.post(environment.motorAdd + EndPoints.MOTOR_ADD, JSON.stringify(motoyPolicyObj), this.httpHeader)
       .pipe(
@@ -59,11 +59,11 @@ export class MotorService {
       )
   }
 
-  motorPolicyUpdate(motorPolicyDetails): Observable<any> {
+  motorPolicyUpdate(motorPolicyDetails, policyNo): Observable<any> {
     let motoyPolicyObj = {
       caRequestId: '01UMOT',
       caCustomerNum: motorPolicyDetails.caCustomerNum,
-      caMotor: motorPolicyDetails
+      caPolicyRequest: { caMotor: motorPolicyDetails, caPolicyNum: policyNo }
     }
     return this.httpClient.post(environment.motorUpdate + EndPoints.MOTOR_UPDATE, JSON.stringify(motoyPolicyObj), this.httpHeader)
       .pipe(

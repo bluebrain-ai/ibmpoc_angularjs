@@ -72,18 +72,23 @@ export class MotorComponent implements OnInit {
       this.noPolicyNo = false;
       // Motor Policy Inquiry
       this._motorService.motorPolicyInquiry(formValue['policyNumber'], formValue['customerNumber']).subscribe((res: any) => {
+        //Call alert to show notification
+        if (res.caReturnCode !== 0) {
+          this.commonService.showRequestCode(res.caReturnCode);
+          return;
+        }
         this.motorForm.patchValue({
-          issueDate: res.caMotor.caIssueDate,
-          expiryDate: res.caMotor.caExpiryDate,
-          carMake: res.caMotor.caMMake,
-          carModel: res.caMotor.caMModel,
-          carValue: res.caMotor.caMValue,
-          registration: res.caMotor.caMRegnumber,
-          carColor: res.caMotor.caMColour,
-          cc: res.caMotor.caMCc,
-          manufactureDate: res.caMotor.caMManufactured,
-          policyPremium: res.caMotor.caMPremium,
-          noOfAccident: res.caMotor.caMAccidents
+          issueDate: res.caPolicyRequest.caMotor.caIssueDate,
+          expiryDate: res.caPolicyRequest.caMotor.caExpiryDate,
+          carMake: res.caPolicyRequest.caMotor.caMMake,
+          carModel: res.caPolicyRequest.caMotor.caMModel,
+          carValue: res.caPolicyRequest.caMotor.caMValue,
+          registration: res.caPolicyRequest.caMotor.caMRegnumber,
+          carColor: res.caPolicyRequest.caMotor.caMColour,
+          cc: res.caPolicyRequest.caMotor.caMCc,
+          manufactureDate: res.caPolicyRequest.caMotor.caMManufactured,
+          policyPremium: res.caPolicyRequest.caMotor.caMPremium,
+          noOfAccident: res.caPolicyRequest.caMotor.caMAccidents
         });
         if (inquiryType == "updateEnquiry") {
           this.isPolicyUpdate = true;
@@ -104,8 +109,13 @@ export class MotorComponent implements OnInit {
     if (this.validation(formValue)) {
       this._motorService.motorPolicyDelete(formValue['policyNumber'], formValue['customerNumber']).subscribe((res: any) => {
         //Call alert to show notification
+        //Call alert to show notification
+        if (res.caReturnCode !== 0) {
+          this.commonService.showRequestCode(res.caReturnCode);
+          return;
+        }
         this.onReset();
-        this.alertService.success("Motor Policy Deleted", false);
+        this.alertService.success("Motor Policy " + res.caPolicyRequest.caPolicyNum + " Deleted", false);
       })
       this.commonService.scrollUpPage();
 
@@ -141,8 +151,17 @@ export class MotorComponent implements OnInit {
     }
     this._motorService.motorPolicyAdd(motorPolicyAddObj).subscribe((res: any) => {
       //Call alert to show notification
+      if (res.caReturnCode !== 0) {
+        this.commonService.showRequestCode(res.caReturnCode);
+        return;
+      }
       this.onReset();
-      this.alertService.success("New Motor Policy Inserted", false);
+
+      // Add created Policy no to textbox 
+      this.motorForm.patchValue({
+        policyNumber: res.caPolicyRequest.caPolicyNum
+      });
+      this.alertService.success("New Motor " + res.caPolicyRequest.caPolicyNum + " Policy Inserted", false);
     });
     this.commonService.scrollUpPage();
   }
@@ -177,11 +196,15 @@ export class MotorComponent implements OnInit {
           caMPremium: formValue['policyPremium'],
           caMAccidents: formValue['noOfAccident'],
         }
-        this._motorService.motorPolicyUpdate(motorPolicyAddObj).subscribe((res: any) => {
+        this._motorService.motorPolicyUpdate(motorPolicyAddObj, formValue['policyNumber']).subscribe((res: any) => {
           //Call alert to show notification
+          if (res.caReturnCode !== 0) {
+            this.commonService.showRequestCode(res.caReturnCode);
+            return;
+          }
           this.isPolicyUpdate = false;
           this.onReset();
-          this.alertService.success("Motor Policy Updated", false);
+          this.alertService.success("Motor Policy " + res.caPolicyRequest.caPolicyNum + " Updated", false);
         })
         this.commonService.scrollUpPage();
 

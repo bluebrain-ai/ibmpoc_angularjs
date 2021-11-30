@@ -124,16 +124,21 @@ export class EndowmentComponent implements OnInit {
       this.noPolicyNo = false;
       // Motor Policy Inquiry
       this._endowmentService.endowmentPolicyInquiry(formValue['policyNumber'], formValue['customerNumber']).subscribe((res: any) => {
+        if (res.caReturnCode !== 0) {
+          this.commonService.showRequestCode(res.caReturnCode);
+          return;
+        }
+
         this.endowmentForm.patchValue({
-          issueDate: res.caEndowment.caIssueDate,
-          expiryDate: res.caEndowment.caExpiryDate,
-          fundName: res.caEndowment.caEFundName,
-          term: res.caEndowment.caETerm,
-          sumAssured: res.caEndowment.caESumAssured,
-          lifeAssured: res.caEndowment.caELifeAssured,
-          withProfits: res.caEndowment.caEWithProfits,
-          equities: res.caEndowment.caEEquities,
-          managedFunds: res.caEndowment.caEManagedFund
+          issueDate: res.caPolicyRequest.caEndowment.caIssueDate,
+          expiryDate: res.caPolicyRequest.caEndowment.caExpiryDate,
+          fundName: res.caPolicyRequest.caEndowment.caEFundName,
+          term: res.caPolicyRequest.caEndowment.caETerm,
+          sumAssured: res.caPolicyRequest.caEndowment.caESumAssured,
+          lifeAssured: res.caPolicyRequest.caEndowment.caELifeAssured,
+          withProfits: res.caPolicyRequest.caEndowment.caEWithProfits,
+          equities: res.caPolicyRequest.caEndowment.caEEquities,
+          managedFunds: res.caPolicyRequest.caEndowment.caEManagedFund
         });
         if (inquiryType == "updateEnquiry") {
           this.isPolicyUpdate = true;
@@ -154,9 +159,14 @@ export class EndowmentComponent implements OnInit {
     if (this.validation(formValue)) {
       this._endowmentService.endowmentPolicyDelete(formValue['policyNumber'], formValue['customerNumber']).subscribe((res: any) => {
         //Call alert to show notification
+        if (res.caReturnCode !== 0) {
+          this.commonService.showRequestCode(res.caReturnCode);
+          return;
+        }
+
         console.log(res, 'Res for delete Motor')
         this.onReset();
-        this.alertService.success("Life Policy Deleted", false);
+        this.alertService.success("Life Policy " + res.caPolicyRequest.caPolicyNum + " Deleted", false);
       })
       this.commonService.scrollUpPage();
 
@@ -190,9 +200,18 @@ export class EndowmentComponent implements OnInit {
     }
     this._endowmentService.endowmentPolicyAdd(endowmentPolicyAddObj).subscribe((res: any) => {
       //Call alert to show notification
+      if (res.caReturnCode !== 0) {
+        this.commonService.showRequestCode(res.caReturnCode);
+        return;
+      }
       console.log(res, 'Res for add claim')
       this.onReset();
-      this.alertService.success("New Life Policy Inserted", false);
+
+      // Add created Policy no to textbox 
+      this.endowmentForm.patchValue({
+        policyNumber: res.caPolicyRequest.caPolicyNum
+      });
+      this.alertService.success("New Life Policy " + res.caPolicyRequest.caPolicyNum + " Inserted", false);
     });
     this.commonService.scrollUpPage();
 
@@ -227,12 +246,16 @@ export class EndowmentComponent implements OnInit {
           caEManagedFund: formValue['managedFunds'],
           caEEquities: formValue['equities']
         }
-        this._endowmentService.endowmentPolicyUpdate(endowmentPolicyAddObj).subscribe((res: any) => {
+        this._endowmentService.endowmentPolicyUpdate(endowmentPolicyAddObj, formValue['policyNumber']).subscribe((res: any) => {
           //Call alert to show notification
+          if (res.caReturnCode !== 0) {
+            this.commonService.showRequestCode(res.caReturnCode);
+            return;
+          }
           console.log(res, 'Res for policy updated')
           this.isPolicyUpdate = false;
           this.onReset();
-          this.alertService.success("Life Policy Updated", false);
+          this.alertService.success("Life Policy " + res.caPolicyRequest.caPolicyNum + " Updated", false);
 
         })
         this.commonService.scrollUpPage();

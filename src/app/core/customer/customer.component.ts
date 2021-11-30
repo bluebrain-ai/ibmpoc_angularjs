@@ -8,7 +8,7 @@ import {
 import { IcustomerAddResponse, IcustomerInquiryResponse } from 'src/app/model/customer';
 import { AlertService } from 'src/app/services/alert.service';
 import { CommonService } from 'src/app/services/common.service';
-import { ClaimService } from 'src/app/services/policy/claim.service';
+import { CustomerService } from 'src/app/services/policy/customer.service';
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.component.html',
@@ -18,13 +18,13 @@ export class CustomerComponent implements OnInit, AfterViewInit {
   customerForm: FormGroup;
   submitted = false;
   noCustomerNo = false;
-  isClaimUpdate = false;
+  isCustomerUpdate = false;
 
-  constructor(private formBuilder: FormBuilder, private _claimService: ClaimService, private alertService: AlertService, private commonService: CommonService) { }
+  constructor(private formBuilder: FormBuilder, private _customerervice: CustomerService, private alertService: AlertService, private commonService: CommonService) { }
   ngOnInit(): void {
     this.submitted = false;
     this.noCustomerNo = false;
-    this.isClaimUpdate = false;
+    this.isCustomerUpdate = false;
     this.customerForm = this.formBuilder.group({
       customerNumber: [
         ''
@@ -62,7 +62,7 @@ export class CustomerComponent implements OnInit, AfterViewInit {
   onReset(): void {
     this.submitted = false;
     this.noCustomerNo = false;
-    this.isClaimUpdate = false;
+    this.isCustomerUpdate = false;
     this.customerForm.reset();
     this.commonService.scrollUpPage();
   }
@@ -78,9 +78,14 @@ export class CustomerComponent implements OnInit, AfterViewInit {
       return;
     }
     this.noCustomerNo = false;
-    this._claimService.claimInquiry(formValue['customerNumber']).subscribe((res: any) => {
+    this._customerervice.customerInquiry(formValue['customerNumber']).subscribe((res: any) => {
 
       if (res.caCustomerRequest !== null) {
+
+        if (res.caReturnCode !== 0) {
+          this.commonService.showRequestCode(res.caReturnCode);
+          return;
+        }
         this.customerForm.patchValue({
           customerFirstName: res.caCustomerRequest.caFirstName,
           customerLastName: res.caCustomerRequest.caLastName,
@@ -94,7 +99,7 @@ export class CustomerComponent implements OnInit, AfterViewInit {
         });
 
         if (inquiryType == "updateEnquiry") {
-          this.isClaimUpdate = true;
+          this.isCustomerUpdate = true;
         }
       }
       else {
@@ -115,7 +120,6 @@ export class CustomerComponent implements OnInit, AfterViewInit {
     // }
     this.noCustomerNo = false;
     let customerAddObj: IcustomerAddResponse = {
-
       caCustomerNum: '0',
       caFirstName: formValue['customerFirstName'],
       caLastName: formValue['customerLastName'],
@@ -127,11 +131,19 @@ export class CustomerComponent implements OnInit, AfterViewInit {
       caPhoneMobile: formValue['phoneMobile'],
       caEmailAddress: formValue['email']
     }
-    this._claimService.claimAdd(customerAddObj).subscribe((res: any) => {
+    this._customerervice.customerAdd(customerAddObj).subscribe((res: any) => {
       //Call alert to show notification
+      if (res.caReturnCode !== 0) {
+        this.commonService.showRequestCode(res.caReturnCode);
+        return;
+      }
       console.log(res, 'Res for add claim')
       this.onReset();
-      this.alertService.success("New Customer Inserted", false);
+      // Add created customer no to textbox 
+      this.customerForm.patchValue({
+        customerNumber: res.caCustomerNum
+      });
+      this.alertService.success("New Customer " + res.caCustomerNum + " Inserted", false);
     });
     this.commonService.scrollUpPage();
   }
@@ -145,9 +157,9 @@ export class CustomerComponent implements OnInit, AfterViewInit {
     }
     this.noCustomerNo = false;
     // for update first Call Enquiry and populate the form and once the data changes then recall the Update 
-    if (this.isClaimUpdate == false) {
+    if (this.isCustomerUpdate == false) {
       this.claimInquiry('updateEnquiry');
-      this.isClaimUpdate = true;
+      this.isCustomerUpdate = true;
     }
     else {
       //Update functionality
@@ -163,10 +175,14 @@ export class CustomerComponent implements OnInit, AfterViewInit {
         caPhoneMobile: formValue['phoneMobile'],
         caEmailAddress: formValue['email']
       }
-      this._claimService.claimUpdate(customerUpdateObj).subscribe((res: any) => {
+      this._customerervice.customerUpdate(customerUpdateObj).subscribe((res: any) => {
         //Call alert to show notification
+        if (res.caReturnCode !== 0) {
+          this.commonService.showRequestCode(res.caReturnCode);
+          return;
+        }
         console.log(res, 'Res for add claim')
-        this.isClaimUpdate = false;
+        this.isCustomerUpdate = false;
         this.onReset();
       })
       this.commonService.scrollUpPage();

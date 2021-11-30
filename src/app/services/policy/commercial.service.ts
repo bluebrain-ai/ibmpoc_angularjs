@@ -32,7 +32,7 @@ export class CommercialService {
     let commercialPolicyobj = {
       caRequestId: '01DCOM',
       caCustomerNum: customerNo,
-      caPolicyNum: policyNo
+      caPolicyRequest: { caPolicyNum: policyNo }
     }
     return this.httpClient.post<any>(environment.commercialDelete + EndPoints.COMMERCIAL_DELETE, JSON.stringify(commercialPolicyobj), this.httpHeader)
       .pipe(
@@ -45,7 +45,7 @@ export class CommercialService {
     let commercialPolicyobj = {
       caRequestId: '01ACOM',
       caCustomerNum: commercialPolicyDetails.caCustomerNum,
-      caEndowment: commercialPolicyDetails
+      caCommercial: commercialPolicyDetails
     }
     return this.httpClient.post(environment.commercialAdd + EndPoints.COMMERCIAL_ADD, JSON.stringify(commercialPolicyobj), this.httpHeader)
       .pipe(

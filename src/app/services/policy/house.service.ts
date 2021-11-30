@@ -23,7 +23,7 @@ export class HouseService {
     let housePolicyobj = {
       caRequestId: '01IHOU',
       caCustomerNum: customerNo,
-      caPolicyNum: policyNo
+      caPolicyRequest: { caPolicyNum: policyNo }
     }
     return this.httpClient.post<any>(environment.houseInquiry + EndPoints.HOUSE_ENQUIRY, JSON.stringify(housePolicyobj), this.httpHeader)
       .pipe(
@@ -36,7 +36,7 @@ export class HouseService {
     let housePolicyobj = {
       caRequestId: '01DHOU',
       caCustomerNum: customerNo,
-      caPolicyNum: policyNo
+      caPolicyRequest: { caPolicyNum: policyNo }
     }
     return this.httpClient.post<any>(environment.houseDelete + EndPoints.HOUSE_DELETE, JSON.stringify(housePolicyobj), this.httpHeader)
       .pipe(
@@ -49,7 +49,7 @@ export class HouseService {
     let housePolicyobj = {
       caRequestId: '01AHOU',
       caCustomerNum: housePolicyDetails.caCustomerNum,
-      caHouse: housePolicyDetails
+      caPolicyRequest: { caHouse: housePolicyDetails }
     }
     return this.httpClient.post(environment.houseAdd + EndPoints.HOUSE_ADD, JSON.stringify(housePolicyobj), this.httpHeader)
       .pipe(
@@ -58,11 +58,11 @@ export class HouseService {
       )
   }
 
-  housePolicyUpdate(housePolicyDetails): Observable<any> {
+  housePolicyUpdate(housePolicyDetails, policyNo): Observable<any> {
     let housePolicyobj = {
       caRequestId: '01IHOU',
       caCustomerNum: housePolicyDetails.caCustomerNum,
-      caHouse: housePolicyDetails
+      caPolicyRequest: { caHouse: housePolicyDetails, caPolicyNum: policyNo }
     }
     return this.httpClient.post(environment.houseUpdate + EndPoints.HOUSE_UPDATE, JSON.stringify(housePolicyobj), this.httpHeader)
       .pipe(

@@ -23,7 +23,7 @@ export class EndowmentService {
     let endowmentPolicyobj = {
       caRequestId: '01IEND',
       caCustomerNum: customerNo,
-      caPolicyNum: policyNo
+      caPolicyRequest: { caPolicyNum: policyNo }
     }
     return this.httpClient.post<any>(environment.endowmentInquiry + EndPoints.ENDOWMENT_ENQUIRY, JSON.stringify(endowmentPolicyobj), this.httpHeader)
       .pipe(
@@ -36,7 +36,7 @@ export class EndowmentService {
     let endowmentPolicyobj = {
       caRequestId: '01DEND',
       caCustomerNum: customerNo,
-      caPolicyNum: policyNo
+      caPolicyRequest: { caPolicyNum: policyNo }
     }
     return this.httpClient.post<any>(environment.endowmentDelete + EndPoints.ENDOWMENT_DELETE, JSON.stringify(endowmentPolicyobj), this.httpHeader)
       .pipe(
@@ -49,7 +49,7 @@ export class EndowmentService {
     let endowmentPolicyobj = {
       caRequestId: '01AEND',
       caCustomerNum: endowmentPolicyDetails.caCustomerNum,
-      caEndowment: endowmentPolicyDetails
+      caPolicyRequest: { caEndowment: endowmentPolicyDetails }
     }
     return this.httpClient.post(environment.endowmentAdd + EndPoints.ENDOWMENT_ADD, JSON.stringify(endowmentPolicyobj), this.httpHeader)
       .pipe(
@@ -58,11 +58,11 @@ export class EndowmentService {
       )
   }
 
-  endowmentPolicyUpdate(endowmentPolicyDetails): Observable<any> {
+  endowmentPolicyUpdate(endowmentPolicyDetails, policyNo): Observable<any> {
     let endowmentPolicyobj = {
       caRequestId: '01UEND',
       caCustomerNum: endowmentPolicyDetails.caCustomerNum,
-      caEndowment: endowmentPolicyDetails
+      caPolicyRequest: { caEndowment: endowmentPolicyDetails, caPolicyNum: policyNo }
     }
     return this.httpClient.post(environment.endowmentUpdate + EndPoints.ENDOWMENT_UPDATE, JSON.stringify(endowmentPolicyobj), this.httpHeader)
       .pipe(
