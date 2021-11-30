@@ -10,22 +10,22 @@ export const environment = {
   customerPolicyUpdate: 'http://localhost:9983',
 
   motorInquiry: 'http://localhost:9984',
-  motorAdd: 'http://localhost:7001',
+  motorAdd: 'http://localhost:9985',
   motorUpdate: 'http://localhost:9987',
   motorDelete: 'http://localhost:9986',
 
   endowmentInquiry: 'http://localhost:9984',
-  endowmentAdd: 'http://localhost:7001',
+  endowmentAdd: 'http://localhost:9985',
   endowmentUpdate: 'http://localhost:9987',
   endowmentDelete: 'http://localhost:9986',
 
   houseInquiry: 'http://localhost:9984',
-  houseAdd: 'http://localhost:7001',
+  houseAdd: 'http://localhost:9985',
   houseUpdate: 'http://localhost:9987',
   houseDelete: 'http://localhost:9986',
 
   commercialInquiry: 'http://localhost:9984',
-  commercialAdd: 'http://localhost:7001',
+  commercialAdd: 'http://localhost:9985',
   commercialDelete: 'http://localhost:9986',
 
 };
