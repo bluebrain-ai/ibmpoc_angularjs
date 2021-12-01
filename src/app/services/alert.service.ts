@@ -8,6 +8,7 @@ import { Observable, Subject } from 'rxjs';
 export class AlertService {
 
   private subject = new Subject<any>();
+  private HideAlertsubject = new Subject<any>();
   private keepAfterNavigationChange = false;
 
   constructor(private router: Router) {
@@ -43,5 +44,9 @@ export class AlertService {
 
   getMessage(): Observable<any> {
     return this.subject.asObservable();
+  }
+
+  hideNotification(): Observable<any> {
+    return this.HideAlertsubject.asObservable();
   }
 }

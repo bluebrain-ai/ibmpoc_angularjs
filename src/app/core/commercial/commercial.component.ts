@@ -158,7 +158,7 @@ export class CommercialComponent implements OnInit {
         }
 
         this.commercialForm.patchValue({
-          customerNumber: res.caPolicyRequest.caCustomerNum,
+          customerNumber: res.caCustomerNum,
           startDate: this.commonService.convertDatetime(res.caPolicyRequest.caPolicyCommon.caIssueDate),
           expiryDate: this.commonService.convertDatetime(res.caPolicyRequest.caPolicyCommon.caExpiryDate),
           address: res.caPolicyRequest.caCommercial.caBAddress,
@@ -265,37 +265,48 @@ export class CommercialComponent implements OnInit {
         caRequestId: '01ICOM',
         caCustomerNum: formValue['customerNumber'],
         caPolicyRequest: {
-          caPolicyNum: formValue['policyNumber']
+          caPolicyNum: formValue['policyNumber'],
+          caCommercial: { caBPostcode: '' }
         }
       }
     }
     else if (formValue['policyNumber'] != null && formValue['policyNumber'] != "") {
       commercialInquiryObj = {
         caRequestId: '02ICOM',
+        caCustomerNum: 0,
         caPolicyRequest: {
-          caPolicyNum: formValue['policyNumber']
+          caPolicyNum: formValue['policyNumber'],
+          caCommercial: { caBPostcode: '' }
         }
       }
     }
     else if (formValue['customerNumber'] != null && formValue['customerNumber'] != "") {
       commercialInquiryObj = {
         caRequestId: '03ICOM',
-        caCustomerNum: formValue['customerNumber']
+        caCustomerNum: formValue['customerNumber'],
+        caPolicyRequest: {
+          caPolicyNum: 0,
+          caCommercial: { caBPostcode: '' }
+        }
       }
     }
     else if (formValue['postalCode'] != null && formValue['postalCode'] != "") {
       commercialInquiryObj = {
         caRequestId: '05ICOM',
-        caPolicyRequest: { caCommercial: { caBPostCode: formValue['postalCode'] } }
+        caCustomerNum: 0,
+        caPolicyRequest: {
+          caPolicyNum: 0,
+          caCommercial: { caBPostCode: formValue['postalCode'] }
+        }
       }
     }
     else {
-      commercialInquiryObj = {
-        caRequestId: 'DUMMY',
-        caBPostCode: formValue['postalCode'],
-        caCustomerNum: formValue['customerNumber'],
-        caPolicyNum: formValue['policyNumber']
-      }
+      // commercialInquiryObj = {
+      //   caRequestId: 'DUMMY',
+      //   caBPostCode: 0,
+      //   caCustomerNum: formValue['customerNumber'],
+      //   caPolicyNum: formValue['policyNumber']
+      // }
     }
 
 

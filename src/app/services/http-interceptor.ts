@@ -11,12 +11,14 @@ import {
   HttpResponse
 } from '@angular/common/http';
 import { LoaderService } from './loader.service';
+import { AlertService } from './alert.service';
 
 @Injectable()
 export class CustomerHttpInterceptor implements HttpInterceptor {
-  constructor(private loaderService: LoaderService) { }
+  constructor(private loaderService: LoaderService, private alertService: AlertService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    //Hide any notification before loading
     this.loaderService.showloader();
     // const token: string = localStorage.getItem('token');
 
