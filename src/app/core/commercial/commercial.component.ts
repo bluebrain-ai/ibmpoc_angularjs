@@ -45,6 +45,8 @@ export class CommercialComponent implements OnInit {
 
       longitude: [''],
       customerName: [''],
+      propType: [''],
+
 
       firePeril: [''],
       firePrem: [''],
@@ -167,6 +169,7 @@ export class CommercialComponent implements OnInit {
           latitude: res.caPolicyRequest.caCommercial.caBLatitude,
           longitude: res.caPolicyRequest.caCommercial.caBLongitude,
           customerName: res.caPolicyRequest.caCommercial.caBCustomer,
+          propType: res.caPolicyRequest.caCommercial.caBPropType,
           firePeril: res.caPolicyRequest.caCommercial.caBFireperil,
           firePrem: res.caPolicyRequest.caCommercial.caBFirepremium,
           crimePeril: res.caPolicyRequest.caCommercial.caBCrimeperil,
@@ -226,7 +229,7 @@ export class CommercialComponent implements OnInit {
       caBLatitude: formValue['latitude'],
       caBLongitude: formValue['longitude'],
       caBCustomer: formValue['customerName'],
-      caBPropType: '',
+      caBPropType: formValue['propType'],
       caBFirePeril: formValue['firePeril'],
       caBFirePremium: formValue['firePrem'],
       caBCrimePeril: formValue['crimePeril'],
