@@ -74,7 +74,7 @@ export class MotorComponent implements OnInit {
       this._motorService.motorPolicyInquiry(formValue['policyNumber'], formValue['customerNumber']).subscribe((res: any) => {
         //Call alert to show notification
         if (res.caReturnCode !== 0) {
-          this.commonService.showRequestCode(res.caReturnCode);
+          this.commonService.showRequestCode(res.caReturnCode, 'Motor', 'INQUIRY');
           return;
         }
         this.motorForm.patchValue({
@@ -111,7 +111,7 @@ export class MotorComponent implements OnInit {
         //Call alert to show notification
         //Call alert to show notification
         if (res.caReturnCode !== 0) {
-          this.commonService.showRequestCode(res.caReturnCode);
+          this.commonService.showRequestCode(res.caReturnCode, 'Motor', 'DELETE');
           return;
         }
         this.onReset();
@@ -152,7 +152,7 @@ export class MotorComponent implements OnInit {
     this._motorService.motorPolicyAdd(motorPolicyAddObj).subscribe((res: any) => {
       //Call alert to show notification
       if (res.caReturnCode !== 0) {
-        this.commonService.showRequestCode(res.caReturnCode);
+        this.commonService.showRequestCode(res.caReturnCode, 'Motor', 'ADD');
         return;
       }
       this.onReset();
@@ -199,7 +199,7 @@ export class MotorComponent implements OnInit {
         this._motorService.motorPolicyUpdate(motorPolicyAddObj, formValue['policyNumber']).subscribe((res: any) => {
           //Call alert to show notification
           if (res.caReturnCode !== 0) {
-            this.commonService.showRequestCode(res.caReturnCode);
+            this.commonService.showRequestCode(res.caReturnCode, 'Motor', 'UPDATE');
             return;
           }
           this.isPolicyUpdate = false;

@@ -153,12 +153,12 @@ export class CommercialComponent implements OnInit {
       let commercialInquiryObj = this.prepareInquiryObj(formValue);
       this._commercialService.commercialPolicyInquiry(commercialInquiryObj).subscribe((res: any) => {
         if (res.caReturnCode !== 0) {
-          this.commonService.showRequestCode(res.caReturnCode);
+          this.commonService.showRequestCode(res.caReturnCode, 'Commercial', 'INQUIRY');
           return;
         }
 
         this.commercialForm.patchValue({
-          customerNumber: res.caPolicyRequest.caCommercial.caCustomerNum,
+          customerNumber: res.caPolicyRequest.caCustomerNum,
           startDate: this.commonService.convertDatetime(res.caPolicyRequest.caPolicyCommon.caIssueDate),
           expiryDate: this.commonService.convertDatetime(res.caPolicyRequest.caPolicyCommon.caExpiryDate),
           address: res.caPolicyRequest.caCommercial.caBAddress,
@@ -194,7 +194,7 @@ export class CommercialComponent implements OnInit {
       this._commercialService.commercialPolicyDelete(formValue['policyNumber'], formValue['customerNumber']).subscribe((res: any) => {
         //Call alert to show notification
         if (res.caReturnCode !== 0) {
-          this.commonService.showRequestCode(res.caReturnCode);
+          this.commonService.showRequestCode(res.caReturnCode, 'Commercial', 'DELETE');
           return;
         }
         console.log(res, 'Res for delete Motor')
@@ -242,7 +242,7 @@ export class CommercialComponent implements OnInit {
     this._commercialService.commercialPolicyAdd(commercialPolicyAddObj).subscribe((res: any) => {
       //Call alert to show notification
       if (res.caReturnCode !== 0) {
-        this.commonService.showRequestCode(res.caReturnCode);
+        this.commonService.showRequestCode(res.caReturnCode, 'Commercial', 'ADD');
         return;
       }
       console.log(res, 'Res for add claim')

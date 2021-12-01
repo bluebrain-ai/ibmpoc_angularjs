@@ -131,7 +131,7 @@ export class CustomerComponent implements OnInit, AfterViewInit {
       if (res.caCustomerRequest !== null) {
 
         if (res.caReturnCode !== 0) {
-          this.commonService.showRequestCode(res.caReturnCode);
+          this.commonService.showRequestCode(res.caReturnCode, 'Customer', 'INQUIRY');
           return;
         }
         this.customerForm.patchValue({
@@ -187,7 +187,7 @@ export class CustomerComponent implements OnInit, AfterViewInit {
     this._customerervice.customerAdd(customerAddObj).subscribe((res: any) => {
       //Call alert to show notification
       if (res.caReturnCode !== 0) {
-        this.commonService.showRequestCode(res.caReturnCode);
+        this.commonService.showRequestCode(res.caReturnCode, 'Customer', 'ADD');
         return;
       }
       console.log(res, 'Res for add claim')
@@ -233,7 +233,7 @@ export class CustomerComponent implements OnInit, AfterViewInit {
       this._customerervice.customerUpdate(customerUpdateObj).subscribe((res: any) => {
         //Call alert to show notification
         if (res.caReturnCode !== 0) {
-          this.commonService.showRequestCode(res.caReturnCode);
+          this.commonService.showRequestCode(res.caReturnCode, 'Customer', 'UPDATE');
           return;
         }
         console.log(res, 'Res for add claim')

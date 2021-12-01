@@ -50,13 +50,57 @@ export class CommonService {
   }
 
 
-  showRequestCode(requestCode) {
+  showRequestCode(requestCode, screenName, operations) {
     let reqCode = Number(requestCode);
-    if (reqCode > 0 && reqCode <= 10) {
-      this.alertService.error(`No Record Found`);
+    // if (reqCode > 0 && reqCode <= 10) {
+    //   this.alertService.error(`No Record Found`);
+    // }
+    // else {
+    //   this.alertService.error(`Error Code : ${requestCode} Message : Please try again..`);
+    // }
+
+    if (reqCode > 0 && screenName != "Customer") {
+      if (operations == 'UPDATE') {
+        this.alertService.error(`Error Updating ${screenName} Policy`);
+      }
+      else if (operations == 'DELETE') {
+        this.alertService.error(`Error Deleting ${screenName} Policy`);
+      }
+      else if (operations == 'INQUIRY') {
+        this.alertService.error(`No data was returned`);
+      }
+      else if (operations == 'ADD' && reqCode == 70) {
+        this.alertService.error(`Error Adding ${screenName} Policy`);
+      }
+      else if (operations == 'ADD') {
+        this.alertService.error(`Customer does not exists`);
+      }
+      else {
+
+      }
+    }
+    else if (reqCode > 0 && screenName == "Customer") {
+      if (operations == 'UPDATE') {
+        this.alertService.error(`Error Updating ${screenName}`);
+      }
+      else if (operations == 'DELETE') {
+        this.alertService.error(`Error Deleting ${screenName}`);
+      }
+      else if (operations == 'INQUIRY') {
+        this.alertService.error(`No data was returned`);
+      }
+      else if (operations == 'ADD') {
+        this.alertService.error(`Error Adding ${screenName}`);
+      }
+      // else if (operations == 'ADD') {
+      //   this.alertService.error(`Customer does not exists`);
+      // }
+      else {
+
+      }
     }
     else {
-      this.alertService.error(`Error Code : ${requestCode} Message : Please try again..`);
+
     }
     this.scrollUpPage();
 

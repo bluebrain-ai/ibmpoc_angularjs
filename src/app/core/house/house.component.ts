@@ -117,7 +117,7 @@ export class HouseComponent implements OnInit {
       this._houseService.housePolicyInquiry(formValue['policyNumber'], formValue['customerNumber']).subscribe((res: any) => {
 
         if (res.caReturnCode !== 0) {
-          this.commonService.showRequestCode(res.caReturnCode);
+          this.commonService.showRequestCode(res.caReturnCode, 'House', 'INQUIRY');
           return;
         }
         this.houseForm.patchValue({
@@ -150,7 +150,7 @@ export class HouseComponent implements OnInit {
       this._houseService.housePolicyDelete(formValue['policyNumber'], formValue['customerNumber']).subscribe((res: any) => {
         //Call alert to show notification
         if (res.caReturnCode !== 0) {
-          this.commonService.showRequestCode(res.caReturnCode);
+          this.commonService.showRequestCode(res.caReturnCode, 'House', 'DELETE');
           return;
         }
         this.onReset();
@@ -188,7 +188,7 @@ export class HouseComponent implements OnInit {
     this._houseService.housePolicyAdd(housePolicyAddObj).subscribe((res: any) => {
       //Call alert to show notification
       if (res.caReturnCode !== 0) {
-        this.commonService.showRequestCode(res.caReturnCode);
+        this.commonService.showRequestCode(res.caReturnCode, 'House', 'ADD');
         return;
       }
       this.onReset();
@@ -233,7 +233,7 @@ export class HouseComponent implements OnInit {
         this._houseService.housePolicyUpdate(housePolicyAddObj, formValue['policyNumber']).subscribe((res: any) => {
           //Call alert to show notification
           if (res.caReturnCode !== 0) {
-            this.commonService.showRequestCode(res.caReturnCode);
+            this.commonService.showRequestCode(res.caReturnCode, 'House', 'UPDATE');
             return;
           }
           this.isPolicyUpdate = false;

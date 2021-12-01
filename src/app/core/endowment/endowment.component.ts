@@ -125,7 +125,7 @@ export class EndowmentComponent implements OnInit {
       // Motor Policy Inquiry
       this._endowmentService.endowmentPolicyInquiry(formValue['policyNumber'], formValue['customerNumber']).subscribe((res: any) => {
         if (res.caReturnCode !== 0) {
-          this.commonService.showRequestCode(res.caReturnCode);
+          this.commonService.showRequestCode(res.caReturnCode, 'Endowment', 'INQUIRY');
           return;
         }
 
@@ -160,7 +160,7 @@ export class EndowmentComponent implements OnInit {
       this._endowmentService.endowmentPolicyDelete(formValue['policyNumber'], formValue['customerNumber']).subscribe((res: any) => {
         //Call alert to show notification
         if (res.caReturnCode !== 0) {
-          this.commonService.showRequestCode(res.caReturnCode);
+          this.commonService.showRequestCode(res.caReturnCode, 'Endowment', 'DELETE');
           return;
         }
 
@@ -201,7 +201,7 @@ export class EndowmentComponent implements OnInit {
     this._endowmentService.endowmentPolicyAdd(endowmentPolicyAddObj).subscribe((res: any) => {
       //Call alert to show notification
       if (res.caReturnCode !== 0) {
-        this.commonService.showRequestCode(res.caReturnCode);
+        this.commonService.showRequestCode(res.caReturnCode, 'Endowment', 'ADD');
         return;
       }
       console.log(res, 'Res for add claim')
@@ -249,7 +249,7 @@ export class EndowmentComponent implements OnInit {
         this._endowmentService.endowmentPolicyUpdate(endowmentPolicyAddObj, formValue['policyNumber']).subscribe((res: any) => {
           //Call alert to show notification
           if (res.caReturnCode !== 0) {
-            this.commonService.showRequestCode(res.caReturnCode);
+            this.commonService.showRequestCode(res.caReturnCode, 'Endowment', 'UPDATE');
             return;
           }
           console.log(res, 'Res for policy updated')
