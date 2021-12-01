@@ -34,7 +34,7 @@ export interface ICommercialPolicy {
     caBLatitude: string;
     caBLongitude: string;
     caBCustomer: string;
-    caBPropType: string;
+    caBProptype: string;
     caBFirePeril: string;
     caBFirePremium: string;
     caBCrimePeril: string;
