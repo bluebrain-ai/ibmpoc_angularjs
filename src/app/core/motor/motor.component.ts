@@ -56,7 +56,7 @@ export class MotorComponent implements OnInit {
       ],
       policyPremium: [
         ''
-      ],
+      ]
     });
   }
   get f(): { [key: string]: AbstractControl } {
@@ -78,8 +78,8 @@ export class MotorComponent implements OnInit {
           return;
         }
         this.motorForm.patchValue({
-          issueDate: this.commonService.convertDatetime(res.caPolicyRequest.caMotor.caIssueDate),
-          expiryDate: this.commonService.convertDatetime(res.caPolicyRequest.caMotor.caExpiryDate),
+          issueDate: this.commonService.convertDatetime(res.caPolicyRequest.caPolicyCommon.caIssueDate),
+          expiryDate: this.commonService.convertDatetime(res.caPolicyRequest.caPolicyCommon.caExpiryDate),
           carMake: res.caPolicyRequest.caMotor.caMMake,
           carModel: res.caPolicyRequest.caMotor.caMModel,
           carValue: res.caPolicyRequest.caMotor.caMValue,
@@ -136,7 +136,7 @@ export class MotorComponent implements OnInit {
       caCustomerNum: formValue['customerNumber'],
       caPayment: "0",
       caBrokerid: "0",
-      caBrokersref: '        ',
+      caBrokersref: '',
       caIssueDate: this.commonService.WithoutTime(formValue['issueDate']),
       caExpiryDate: this.commonService.WithoutTime(formValue['expiryDate']),
       caMMake: formValue['carMake'],
@@ -183,7 +183,7 @@ export class MotorComponent implements OnInit {
           caCustomerNum: formValue['customerNumber'],
           caPayment: "0",
           caBrokerid: "0",
-          caBrokersref: '        ',
+          caBrokersref: '',
           caIssueDate: this.commonService.WithoutTime(formValue['issueDate']),
           caExpiryDate: this.commonService.WithoutTime(formValue['expiryDate']),
           caMMake: formValue['carMake'],
