@@ -145,7 +145,7 @@ export class MotorComponent implements OnInit {
       caMRegnumber: formValue['registration'],
       caMColour: formValue['carColor'],
       caMCc: formValue['cc'],
-      caMManufacture: formValue['manufactureDate'],
+      caMManufacture: this.commonService.WithoutTime(formValue['manufactureDate']),
       caMPremium: formValue['policyPremium'],
       caMAccidents: formValue['noOfAccident'],
     }
@@ -192,7 +192,7 @@ export class MotorComponent implements OnInit {
           caMRegnumber: formValue['registration'],
           caMColour: formValue['carColor'],
           caMCc: formValue['cc'],
-          caMManufacture: formValue['manufactureDate'],
+          caMManufacture: this.commonService.WithoutTime(formValue['manufactureDate']),
           caMPremium: formValue['policyPremium'],
           caMAccidents: formValue['noOfAccident'],
         }

@@ -286,7 +286,7 @@
                     <label class="mb-2">Status </label>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" formControlName="status" class="form-control textbox" maxlength="4" [ngClass]="{ 'is-invalid': submitted && f.status.errors }" />
+                    <input type="text" formControlName="status" class="form-control textbox" maxlength="25" [ngClass]="{ 'is-invalid': submitted && f.status.errors }" />
                     <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
                         <div *ngIf="f.status.errors.required">Status is required</div>
                     </div>
@@ -300,7 +300,7 @@
                     <label class="mb-2">Reject Reason </label>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" formControlName="rejectReason" class="form-control textbox" maxlength="4" [ngClass]="{ 'is-invalid': submitted && f.rejectReason.errors }" />
+                    <input type="text" formControlName="rejectReason" class="form-control textbox" maxlength="25" [ngClass]="{ 'is-invalid': submitted && f.rejectReason.errors }" />
                     <div *ngIf="submitted && f.rejectReason.errors" class="invalid-feedback">
                         <div *ngIf="f.rejectReason.errors.required">
                             Reject Reason is required
