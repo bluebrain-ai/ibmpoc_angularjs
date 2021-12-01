@@ -130,8 +130,8 @@ export class EndowmentComponent implements OnInit {
         }
 
         this.endowmentForm.patchValue({
-          issueDate: res.caPolicyRequest.caEndowment.caIssueDate,
-          expiryDate: this.commonService.convertDatetime(res.caPolicyRequest.caEndowment.caExpiryDate),
+          issueDate: this.commonService.convertDatetime(res.caPolicyRequest.caPolicyCommon.caIssueDate),
+          expiryDate: this.commonService.convertDatetime(res.caPolicyRequest.caPolicyCommon.caExpiryDate),
           fundName: res.caPolicyRequest.caEndowment.caEFundName,
           term: res.caPolicyRequest.caEndowment.caETerm,
           sumAssured: res.caPolicyRequest.caEndowment.caESumAssured,
@@ -187,7 +187,7 @@ export class EndowmentComponent implements OnInit {
       caCustomerNum: formValue['customerNumber'],
       caPayment: "0",
       caBrokerid: "0",
-      caBrokersref: '        ',
+      caBrokersref: '',
       caIssueDate: this.commonService.WithoutTime(formValue['issueDate']),
       caExpiryDate: this.commonService.WithoutTime(formValue['expiryDate']),
       caEFundName: formValue['fundName'],
@@ -235,7 +235,7 @@ export class EndowmentComponent implements OnInit {
           caCustomerNum: formValue['customerNumber'],
           caPayment: "0",
           caBrokerid: "0",
-          caBrokersref: '        ',
+          caBrokersref: '',
           caIssueDate: this.commonService.WithoutTime(formValue['issueDate']),
           caExpiryDate: this.commonService.WithoutTime(formValue['expiryDate']),
           caEFundName: formValue['fundName'],

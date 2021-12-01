@@ -159,8 +159,8 @@ export class CommercialComponent implements OnInit {
 
         this.commercialForm.patchValue({
           customerNumber: res.caPolicyRequest.caCommercial.caCustomerNum,
-          startDate: this.commonService.convertDatetime(res.caPolicyRequest.caCommercial.caIssueDate),
-          expiryDate: this.commonService.convertDatetime(res.caPolicyRequest.caCommercial.caExpiryDate),
+          startDate: this.commonService.convertDatetime(res.caPolicyRequest.caPolicyCommon.caIssueDate),
+          expiryDate: this.commonService.convertDatetime(res.caPolicyRequest.caPolicyCommon.caExpiryDate),
           address: res.caPolicyRequest.caCommercial.caBAddress,
           postalCode: res.caPolicyRequest.caCommercial.caBPostcode,
           latitude: res.caPolicyRequest.caCommercial.caBLatitude,

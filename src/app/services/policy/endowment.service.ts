@@ -49,7 +49,16 @@ export class EndowmentService {
     let endowmentPolicyobj = {
       caRequestId: '01AEND',
       caCustomerNum: endowmentPolicyDetails.caCustomerNum,
-      caPolicyRequest: { caEndowment: endowmentPolicyDetails }
+      caPolicyRequest: {
+        caEndowment: endowmentPolicyDetails, caPolicyCommon: {
+          "caBrokerid": endowmentPolicyDetails.caBrokerid,
+          "caBrokersref": endowmentPolicyDetails.caBrokersref,
+          "caExpiryDate": endowmentPolicyDetails.caExpiryDate,
+          "caIssueDate": endowmentPolicyDetails.caIssueDate,
+          "caLastchanged": "",
+          "caPayment": 0
+        }
+      }
     }
     return this.httpClient.post(environment.endowmentAdd + EndPoints.ENDOWMENT_ADD, JSON.stringify(endowmentPolicyobj), this.httpHeader)
       .pipe(
@@ -62,7 +71,16 @@ export class EndowmentService {
     let endowmentPolicyobj = {
       caRequestId: '01UEND',
       caCustomerNum: endowmentPolicyDetails.caCustomerNum,
-      caPolicyRequest: { caEndowment: endowmentPolicyDetails, caPolicyNum: policyNo }
+      caPolicyRequest: {
+        caEndowment: endowmentPolicyDetails, caPolicyNum: policyNo, caPolicyCommon: {
+          "caBrokerid": endowmentPolicyDetails.caBrokerid,
+          "caBrokersref": endowmentPolicyDetails.caBrokersref,
+          "caExpiryDate": endowmentPolicyDetails.caExpiryDate,
+          "caIssueDate": endowmentPolicyDetails.caIssueDate,
+          "caLastchanged": "",
+          "caPayment": 0
+        }
+      }
     }
     return this.httpClient.post(environment.endowmentUpdate + EndPoints.ENDOWMENT_UPDATE, JSON.stringify(endowmentPolicyobj), this.httpHeader)
       .pipe(

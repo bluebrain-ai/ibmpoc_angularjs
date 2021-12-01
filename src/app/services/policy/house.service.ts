@@ -49,7 +49,16 @@ export class HouseService {
     let housePolicyobj = {
       caRequestId: '01AHOU',
       caCustomerNum: housePolicyDetails.caCustomerNum,
-      caPolicyRequest: { caHouse: housePolicyDetails }
+      caPolicyRequest: {
+        caHouse: housePolicyDetails, caPolicyCommon: {
+          "caBrokerid": 0,
+          "caBrokersref": "",
+          "caExpiryDate": housePolicyDetails.caExpiryDate,
+          "caIssueDate": housePolicyDetails.caIssueDate,
+          "caLastchanged": "",
+          "caPayment": 0
+        }
+      }
     }
     return this.httpClient.post(environment.houseAdd + EndPoints.HOUSE_ADD, JSON.stringify(housePolicyobj), this.httpHeader)
       .pipe(
@@ -62,7 +71,16 @@ export class HouseService {
     let housePolicyobj = {
       caRequestId: '01IHOU',
       caCustomerNum: housePolicyDetails.caCustomerNum,
-      caPolicyRequest: { caHouse: housePolicyDetails, caPolicyNum: policyNo }
+      caPolicyRequest: {
+        caHouse: housePolicyDetails, caPolicyNum: policyNo, caPolicyCommon: {
+          "caBrokerid": 0,
+          "caBrokersref": "",
+          "caExpiryDate": housePolicyDetails.caExpiryDate,
+          "caIssueDate": housePolicyDetails.caIssueDate,
+          "caLastchanged": "",
+          "caPayment": 0
+        }
+      }
     }
     return this.httpClient.post(environment.houseUpdate + EndPoints.HOUSE_UPDATE, JSON.stringify(housePolicyobj), this.httpHeader)
       .pipe(
