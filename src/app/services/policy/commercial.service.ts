@@ -45,14 +45,16 @@ export class CommercialService {
     let commercialPolicyobj = {
       caRequestId: '01ACOM',
       caCustomerNum: commercialPolicyDetails.caCustomerNum,
-      caCommercial: commercialPolicyDetails,
-      caPolicyCommon: {
-        "caBrokerid": 0,
-        "caBrokersref": "",
-        "caExpiryDate": commercialPolicyDetails.caExpiryDate,
-        "caIssueDate": commercialPolicyDetails.caIssueDate,
-        "caLastchanged": "",
-        "caPayment": 0
+      caPolicyRequest: {
+        caCommercial: commercialPolicyDetails,
+        caPolicyCommon: {
+          "caBrokerid": 0,
+          "caBrokersref": "",
+          "caExpiryDate": commercialPolicyDetails.caExpiryDate,
+          "caIssueDate": commercialPolicyDetails.caIssueDate,
+          "caLastchanged": "",
+          "caPayment": 0
+        }
       }
     }
     return this.httpClient.post(environment.commercialAdd + EndPoints.COMMERCIAL_ADD, JSON.stringify(commercialPolicyobj), this.httpHeader)
